@@ -8,9 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>眼保健操管理系统</title>
 </head>
 <body>
-<p>123</p>
+<script type="text/javascript">
+    location.href = "<%=request.getContextPath()%>/";
+</script>
 </body>
 </html>
