@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlk.zlkproject.user.index.mapper.IndexMapper">
+    <resultMap id="userMap" type="com.zlk.eye.user.entity.Users">
+        <id property="userId" column="user_id" javaType="java.lang.String"/>
+        <result property="userName" column="user_name" javaType="java.lang.String"/>
+        <result property="userPwd" column="user_pwd" javaType="java.lang.String"/>
+        <result property="userPhonenum" column="user_phonenum" javaType="java.lang.String"/>
+    </resultMap>
+    <resultMap id="doctorMap" type="com.zlk.eye.user.entity.Doctors">
+        <id property="doctorId" column="doctor_id" javaType="java.lang.String"/>
+        <result property="doctorName" column="doctor_name" javaType="java.lang.String"/>
+        <result property="doctorPwd" column="doctor_pwd" javaType="java.lang.String"/>
+        <result property="doctorPhonenum" column="doctor_phonenum" javaType="java.lang.String"/>
+    </resultMap>
+    <!--根据手机号查询用户-->
+    <select id="findUserByPhone" parameterType="com.zlk.eye.user.entity.Users" parameterMap="userMap">
+        select * from users where user_phonenum = #{userPhonenum}
+    </select>
+    <!--根据手机号查询医生-->
+    <select id="findDoctorByPhone" parameterType="com.zlk.eye.user.entity.Doctors" parameterMap="doctorMap">
+        select * from doctors where doctor_phonenum = #{doctorPhonenum}
+    </select>
+
+</mapper>

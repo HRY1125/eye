@@ -1,5 +1,7 @@
 package com.zlk.eye.user.controller;
 
+import com.zlk.eye.user.service.IndexService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class IndexController {
+    @Autowired
+    private IndexService indexService;
 
     /**
      * 跳转至登录页面
@@ -20,4 +24,5 @@ public class IndexController {
     public String index(){
         return "firstpage";
     }
+
 }

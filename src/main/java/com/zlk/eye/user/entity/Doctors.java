@@ -8,7 +8,7 @@ package com.zlk.eye.user.entity;
  */
 public class Doctors {
     /*医生id*/
-    private int doctorId;
+    private String doctorId;
     /*医生姓名*/
     private String doctorName;
     /*医生密码*/
@@ -19,18 +19,18 @@ public class Doctors {
     public Doctors() {
     }
 
-    public Doctors(int doctorId, String doctorName, String doctorPwd, String doctorPhonenum) {
+    public Doctors(String doctorId, String doctorName, String doctorPwd, String doctorPhonenum) {
         this.doctorId = doctorId;
         this.doctorName = doctorName;
         this.doctorPwd = doctorPwd;
         this.doctorPhonenum = doctorPhonenum;
     }
 
-    public int getDoctorId() {
+    public String getDoctorId() {
         return doctorId;
     }
 
-    public void setDoctorId(int doctorId) {
+    public void setDoctorId(String doctorId) {
         this.doctorId = doctorId;
     }
 

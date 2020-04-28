@@ -8,7 +8,7 @@ package com.zlk.eye.user.entity;
  */
 public class Users {
     /*用户id*/
-    private int userId;
+    private String userId;
     /*用户姓名*/
     private String userName;
     /*用户密码*/
@@ -19,18 +19,18 @@ public class Users {
     public Users() {
     }
 
-    public Users(int userId, String userName, String userPwd, String userPhonenum) {
+    public Users(String userId, String userName, String userPwd, String userPhonenum) {
         this.userId = userId;
         this.userName = userName;
         this.userPwd = userPwd;
         this.userPhonenum = userPhonenum;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
