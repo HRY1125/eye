@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlk.eye.diagnose.mapper.DiagnoseMapper">
+    <resultMap id="diagnoseEntityMap" type="com.zlk.eye.entity.Diagnose">
+        <id property="diagnoseId" column="diagnose_id" javaType="java.lang.Integer"/>
+        <result property="userId" column="user_id" javaType="java.lang.String"/>
+        <result property="doctorId" column="doctor_id" javaType="java.lang.String"/>
+        <result property="diagnoseTitle" column="diagnose_title" javaType="java.lang.String"/>
+        <result property="date" column="date" javaType="java.util.Date"/>
+    </resultMap>
+    <select id="selectAllOrderByDate" resultMap="diagnoseEntityMap">
+        select * from diagnose order by date desc;
+    </select>
+    <select id="selectAllCount" resultType="java.lang.Integer">
+        select count(1) from diagnose;
+    </select>
+</mapper>
