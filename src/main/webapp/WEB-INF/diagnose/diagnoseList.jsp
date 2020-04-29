@@ -43,10 +43,10 @@
                 , toolbar: '#toolbarDemo'
                 , cols: [[
                     {field: 'diagnoseId', width: 100, title: '诊断ID', sort: true}
-                    , {field: 'userId', width: 100, title: '请求诊断用户', sort: true}
-                    , {field: 'doctorId', title: '章节名'}
-                    , {field: 'diagnoseTitle', width: 100, title: '诊断说明'}
-                    , {field: 'date', width: 100, title: '请求时间',templet: '<div>{{ layui.util.toDateString(d.date,"yyyy-MM-dd HH:mm:ss") }}</div>'}
+                    , {field: 'userId', width: 120, title: '请求诊断用户', sort: true}
+                    , {field: 'doctorId', width:100,title: '章节名'}
+                    , {field: 'diagnoseTitle', title: '诊断说明'}
+                    , {field: 'date', width: 200, title: '请求时间',templet: '<div>{{ layui.util.toDateString(d.date,"yyyy-MM-dd HH:mm:ss") }}</div>'}
                     , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
                 ]]
                 , page: true

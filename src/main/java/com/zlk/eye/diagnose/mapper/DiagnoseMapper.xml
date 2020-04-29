@@ -10,10 +10,37 @@
         <result property="diagnoseTitle" column="diagnose_title" javaType="java.lang.String"/>
         <result property="date" column="date" javaType="java.util.Date"/>
     </resultMap>
-    <select id="selectAllOrderByDate" resultMap="diagnoseEntityMap">
-        select * from diagnose order by date desc;
+    <select id="selectByID" parameterType="com.zlk.eye.entity.Diagnose" resultMap="diagnoseEntityMap">
+        select * from diagnose
+        <where>
+            <choose>
+                <when test="userId != null and userId != ''">
+                    user_id = #{userId}
+                </when>
+                <when test="doctorId != null and doctorId != ''">
+                    doctor_id = #{doctorId}
+                </when>
+                <otherwise></otherwise>
+            </choose>
+        </where>
+        order by date desc
+        limit #{startPage},#{limit};
     </select>
-    <select id="selectAllCount" resultType="java.lang.Integer">
-        select count(1) from diagnose;
+    <select id="selectCountById" parameterType="com.zlk.eye.entity.Diagnose" resultType="java.lang.Integer">
+        select count(1) from diagnose
+        <where>
+            <choose>
+                <when test="userId != null and userId != ''">
+                    user_id = #{userId}
+                </when>
+                <when test="doctorId != null and doctorId != ''">
+                    doctor_id = #{doctorId}
+                </when>
+                <otherwise></otherwise>
+            </choose>
+        </where>
     </select>
+    <delete id="deleteDiagnose" parameterType="java.lang.Integer">
+        delete from diagnose where diagnose_id = #{diagnoseId};
+    </delete>
 </mapper>

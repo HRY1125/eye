@@ -1,5 +1,6 @@
 package com.zlk.eye.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -27,6 +28,9 @@ public class Diagnose {
     /* 请求诊断日期 对应数据库表中date字段*/
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date date;
+
+    private int startPage;
+    private int limit;
 
     public Diagnose() {
     }
