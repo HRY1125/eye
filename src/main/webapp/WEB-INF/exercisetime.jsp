@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Title</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <style>
         button{
             width: 100px;
@@ -30,29 +31,45 @@
     <script type="text/javascript">
         var s=0;
         var t;
-        function timedCount()
-        {
+        $(function () {
+            $("#ting").hide();
+        });
+        function timedCount() {
+            $("#kai").hide();
+            $("#ting").show();
             document.getElementById('second').value=s;
             s=s+1;
             t=setTimeout("timedCount()",1000);
         }
-        function stopCount()
-        {
+        function stopCount() {
+            $("#ting").hide();
+            $("#kai").show();
             clearTimeout(t);
+        }
+        function tijiao() {
+            var data = $("#second").val();
+            $.ajax({
+                type : "POST",
+                url :"/eye/updateye",
+                data:{"s":data},
+                success: function (data) {
+                    console.log(data);
+                }
+            })
         }
     </script>
 </head>
 <body>
-    <div id="time">
+        <div id="time">
         <center>
             <input type="text" id="second">秒
         </center>
     </div>
     <div id="switch">
         <center>
-            <button onClick="timedCount()">开始</button>
-            <button onClick="stopCount()">停止</button>
-            <button onclick="">提交</button>
+            <button id="kai" onClick="timedCount()">开始</button>
+            <button id="ting" onClick="stopCount()">停止</button>
+            <button id="ti" onclick="tijiao()">提交</button>
         </center>
     </div>
 </body>
