@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper>
+    <resultMap id="diagnoseContentMap" type="com.zlk.eye.entity.DiagnoseContent">
+        <id property="dcId" column="dc_id" javaType="java.lang.Integer"/>
+        <result property="content" column="content" javaType="java.lang.String"/>
+        <result property="role" column="role" javaType="java.lang.String"/>
+        <result property="date" column="date" javaType="java.util.Date"/>
+        <result property="diagnoseId" column="diagnose_id" javaType="java.lang.Integer"/>
+    </resultMap>
+    <select id="selectAllByDiagnoseId" parameterType="java.lang.Integer" resultMap="diagnoseContentMap">
+        select * from diagnosecontent where diagnose_id = #{diagnoseId}
+        order by date desc
+        limit #{startPage},#{limit};
+    </select>
+    <select id="selectCountByDiagnoseId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(1) from diagnosecontent where diagnose_id = #{diagnoseId};
+    </select>
+    <insert id="insertDiagnoseContent" parameterType="com.zlk.eye.entity.DiagnoseContent">
+        insert into diagnosecontent(content,role,date,diagnose_id)
+        values (#{content},#{role},#{date},#{diagnoseId})
+    </insert>
+    <update id="updateDCByDcId" parameterType="com.zlk.eye.entity.DiagnoseContent">
+        update diagnosecontent
+        <set>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+            <if test="role != null and role != ''">
+                role = #{role},
+            </if>
+            <if test="date != null">
+                date = #{date},
+            </if>
+            <if test="diagnoseId != null">
+                diagnose_id = #{diagnoseId},
+            </if>
+        </set>
+        where dc_id = #{dcId};
+    </update>
+    <delete id="deleteByDcId" parameterType="java.lang.Integer">
+        delete from diagnosecontent where dc_id = #{dcId};
+    </delete>
+    <delete id="deleteByDiagnoseId" parameterType="java.lang.Integer">
+        delete from diagnosecontent where diagnose_id = #{diagnoseId};
+    </delete>
+</mapper>
