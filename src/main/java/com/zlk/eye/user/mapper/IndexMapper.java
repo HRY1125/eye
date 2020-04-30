@@ -1,7 +1,8 @@
 package com.zlk.eye.user.mapper;
 
 import com.zlk.eye.user.entity.Doctors;
-import org.apache.catalina.User;
+import com.zlk.eye.user.entity.Users;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -11,18 +12,33 @@ import java.util.List;
  * @Author： wy
  * @Date： 2020/4/28 10:34
  */
+@Mapper
 public interface IndexMapper {
     /**
-     * 根据手机号查询用户
-     * @param userPhonenum
+     * 用户登录方法
+     * @param userName
+     * @param userPwd
      * @return
      */
-    User findUserByPhone(String userPhonenum);
+    Users findUserByNameAndPwd(String userName,String userPwd);
 
     /**
-     * 根据手机号查询医生
-     * @param doctorPhonenum
+     * 医生登录方法
+     * @param doctors
      * @return
      */
-    Doctors findDoctorByPhone(String doctorPhonenum);
+    Doctors findDoctorByNameAndPwd(Doctors doctors);
+
+    /**
+     * 用户注册
+     * @param users
+     * @return
+     */
+    Integer addUser(Users users);
+
+    /**
+     * 查找所有用户，对比用户手机号
+     * @return
+     */
+    List<Users> findUserAll();
 }
