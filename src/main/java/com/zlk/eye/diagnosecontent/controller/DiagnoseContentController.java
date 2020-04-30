@@ -32,7 +32,9 @@ public class DiagnoseContentController {
     @RequestMapping(value = "/toDiagnoseContent")
     public ModelAndView toContent() throws Exception{
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("diagnose/diagnoseList");
+        int diagnoseId = 3;
+        mv.addObject("diagnoseId",diagnoseId);
+        mv.setViewName("diagnose/diagnoseContent");
         return mv;
     }
 
