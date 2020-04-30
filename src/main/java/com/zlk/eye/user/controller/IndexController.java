@@ -51,15 +51,21 @@ public class IndexController {
     public ModelAndView userLogin(Users users, HttpServletRequest request)throws Exception{
         ModelAndView mv = new ModelAndView();
         Users user = indexService.findUserByNameAndPwd(users.getUserName(),users.getUserPwd());
-        if ((user == null)){
-            mv.addObject("flag",true);
-            mv.addObject("wrong","用户名或密码错误，请重新登录！");
-            mv.setViewName("home");
-            return mv;
+        if (users != null){
+            if ((user == null)){
+                mv.addObject("flag",true);
+                mv.addObject("wrong","用户名或密码错误，请重新登录！");
+                mv.setViewName("home");
+                return mv;
+            } else {
+                mv.setViewName("firstpage");
+                return mv;
+            }
         } else {
             mv.setViewName("firstpage");
             return mv;
         }
+
     }
 
     /**

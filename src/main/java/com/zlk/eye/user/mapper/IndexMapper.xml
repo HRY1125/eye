@@ -16,7 +16,7 @@
         <result property="doctorPhonenum" column="doctor_phonenum" javaType="java.lang.String"/>
     </resultMap>
     <!--用户登录方法-->
-    <select id="findUserByNameAndPwd" parameterType="java.lang.String" resultMap="userMap">
+    <select id="findUserByNameAndPwd" parameterType="com.zlk.eye.user.entity.Users" resultMap="userMap">
         select user_name,user_pwd from users where user_name = #{userName} and user_pwd = #{userPwd}
     </select>
     <!--医生登录方法-->
