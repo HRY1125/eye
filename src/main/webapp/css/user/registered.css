@@ -16,4 +16,4 @@ body{background-image: url(/img/background-image.jpg);}
 .inputinfo .login{background-color: #42a3d0;border: none;height: 2vw;width: 5vw;color: #fff;
     font-size: 16px;margin: 1vw;border-radius: 3px;cursor: pointer;}
 .doctor_form{display: none;}
-.wrong{color: red;position: absolute;margin-left: 6vw;font-size: 14px;display: none;}
+.wrong{color: red;position: absolute;margin-left: 6vw;font-size: 14px;}

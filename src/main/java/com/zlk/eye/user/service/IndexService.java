@@ -22,10 +22,11 @@ public interface IndexService {
 
     /**
      * 医生登录方法
-     * @param doctors
+     * @param doctorName
+     * @param doctorPwd
      * @return
      */
-    Doctors findDoctorByNameAndPwd(Doctors doctors);
+    Doctors findDoctorByNameAndPwd(String doctorName,String doctorPwd);
 
     /**
      * 用户注册
@@ -39,4 +40,17 @@ public interface IndexService {
      * @return
      */
     List<Users> findUserAll();
+
+    /**
+     * 医生注册
+     * @param doctors
+     * @return
+     */
+    Integer addDoctor(Doctors doctors);
+
+    /**
+     * 查找所有医生，对比医生手机号
+     * @return
+     */
+    List<Doctors> findDoctorAll();
 }

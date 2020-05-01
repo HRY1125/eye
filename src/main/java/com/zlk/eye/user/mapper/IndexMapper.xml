@@ -16,12 +16,12 @@
         <result property="doctorPhonenum" column="doctor_phonenum" javaType="java.lang.String"/>
     </resultMap>
     <!--用户登录方法-->
-    <select id="findUserByNameAndPwd" parameterType="com.zlk.eye.user.entity.Users" resultMap="userMap">
+    <select id="findUserByNameAndPwd" parameterType="java.util.Map" resultMap="userMap">
         select user_name,user_pwd from users where user_name = #{userName} and user_pwd = #{userPwd}
     </select>
     <!--医生登录方法-->
-    <select id="findDoctorByNameAndPwd" parameterType="com.zlk.eye.user.entity.Doctors" resultMap="doctorMap">
-        select * from doctors where doctor_name = #{doctorName} and doctor_pwd = #{doctorPwd}
+    <select id="findDoctorByNameAndPwd" parameterType="java.util.Map" resultMap="doctorMap">
+        select doctor_name,doctor_pwd from doctors where doctor_name = #{doctorName} and doctor_pwd = #{doctorPwd}
     </select>
     <!--用户注册-->
     <insert id="addUser" parameterType="com.zlk.eye.user.entity.Users">
@@ -29,8 +29,17 @@
         values (#{userId},#{userName},#{userPwd},#{userPhonenum})
     </insert>
     <!--查找所有用户，对比用户手机号-->
-    <select id="findUserAll" parameterType="com.zlk.eye.user.entity.Users" parameterMap="userMap">
+    <select id="findUserAll" parameterType="com.zlk.eye.user.entity.Users" resultMap="userMap">
         select user_name,user_phonenum from users
+    </select>
+    <!--医生注册-->
+    <insert id="addDoctor" parameterType="com.zlk.eye.user.entity.Doctors">
+        insert into doctors(doctor_id,doctor_name,doctor_pwd,doctor_phonenum)
+        values (#{doctorId},#{doctorName},#{doctorPwd},#{doctorPhonenum})
+    </insert>
+    <!--查找所有医生，对比医生手机号-->
+    <select id="findDoctorAll" parameterType="com.zlk.eye.user.entity.Doctors" resultMap="doctorMap">
+        select doctor_name,doctor_phonenum from doctors
     </select>
 
 </mapper>

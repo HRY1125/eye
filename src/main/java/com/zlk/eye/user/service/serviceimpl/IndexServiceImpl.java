@@ -7,6 +7,7 @@ import com.zlk.eye.user.service.IndexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ import java.util.List;
  */
 @Service
 public class IndexServiceImpl implements IndexService {
-    @Autowired
+    @Resource
     private IndexMapper indexMapper;
 
     @Override
@@ -26,8 +27,8 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
-    public Doctors findDoctorByNameAndPwd(Doctors doctors) {
-        return indexMapper.findDoctorByNameAndPwd(doctors);
+    public Doctors findDoctorByNameAndPwd(String doctorName, String doctorPwd) {
+        return indexMapper.findDoctorByNameAndPwd(doctorName,doctorPwd);
     }
 
     @Override
@@ -38,5 +39,15 @@ public class IndexServiceImpl implements IndexService {
     @Override
     public List<Users> findUserAll() {
         return indexMapper.findUserAll();
+    }
+
+    @Override
+    public Integer addDoctor(Doctors doctors) {
+        return indexMapper.addDoctor(doctors);
+    }
+
+    @Override
+    public List<Doctors> findDoctorAll() {
+        return indexMapper.findDoctorAll();
     }
 }

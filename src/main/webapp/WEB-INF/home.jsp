@@ -13,5 +13,11 @@
 <body>
 登录成功！
 首页进来了~~~
+<c:if test="${userName!=null}">
+    欢迎：${userName}
+</c:if>
+<c:if test="${userName==null}">
+    欢迎：${doctorName}医生
+</c:if>
 </body>
 </html>
