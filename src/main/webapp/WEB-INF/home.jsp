@@ -11,13 +11,9 @@
     <title>首页</title>
 </head>
 <body>
+<jsp:include page="header.jsp"></jsp:include>
 登录成功！
 首页进来了~~~
-<c:if test="${userName!=null}">
-    欢迎：${userName}
-</c:if>
-<c:if test="${userName==null}">
-    欢迎：${doctorName}医生
-</c:if>
+欢迎：${name}
 </body>
 </html>

@@ -59,7 +59,7 @@ public class IndexController {
                 return mv;
             } else {
                 mv.setViewName("home");
-                mv.addObject("userName",users.getUserName());
+                mv.addObject("name",users.getUserName());
                 return mv;
             }
         } else {
@@ -85,7 +85,7 @@ public class IndexController {
                 return mv;
             } else {
                 mv.setViewName("home");
-                mv.addObject("doctorName",doctors.getDoctorName());
+                mv.addObject("name",doctors.getDoctorName());
                 return mv;
             }
         } else {
