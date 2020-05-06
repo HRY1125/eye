@@ -1,14 +1,14 @@
 *{margin: 0;padding: 0;}
 body{background-image: url(/img/background-image.jpg);}
-.box{height: 25vw;width: 30vw;top: 10vw;left: 35vw;background-color: rgba(255, 255, 255, 0.5);
+.box{height: 28vw;width: 30vw;top: 10vw;left: 35vw;background-color: rgba(255, 255, 255, 0.5);
     border-radius: 5px;position: absolute;overflow: hidden;}
-.box .tab{height: 4vw;line-height: 4vw;text-align: center;padding-top: 2vw;}
+.box .tab{height: 4vw;line-height: 4vw;text-align: center;padding-top: 1vw;}
 .box .tab span{margin: 1vw;}
 .box ul{text-align: center;}
 .box ul li{list-style: none;}
 .active{color: #022b7b;font-size: 20px;font-weight: bold;}
 .box .tab span:hover{cursor: pointer;color: #022b7b;font-weight: bold;}
-.inputinfo{margin: 2vw;}
+.inputinfo{margin: 1.5vw;}
 .form{text-align: center;}
 .form img{height: 2vw;width: 2vw;position: absolute;padding: 4px;}
 .form .input{height: 2.5vw;width: 15vw;border: none;background-color: rgba(255, 255, 255, 0.5);
@@ -16,5 +16,4 @@ body{background-image: url(/img/background-image.jpg);}
 .inputinfo .login{background-color: #42a3d0;border: none;height: 2vw;width: 5vw;color: #fff;
     font-size: 16px;margin: 1vw;border-radius: 3px;cursor: pointer;}
 .doctor_form{display: none;}
-.clear{clear: both}
-.wrong{color: red;margin-bottom: -1vw;}
+.wrong{color: red;position: absolute;margin-left: 6vw;font-size: 14px;}
