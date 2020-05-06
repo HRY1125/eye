@@ -20,14 +20,8 @@
 
 
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit">查看具体信息</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    </script>
-
-    <script type="text/html" id="toolbarDemo">
-        <div class="layui-btn-container layui-inline">
-            <button class="layui-btn layui-btn-sm" lay-event="insert">新增</button>
-        </div>
     </script>
 </div>
 
@@ -44,12 +38,50 @@
                 , cols: [[
                     {field: 'diagnoseId', width: 100, title: '诊断ID', sort: true}
                     , {field: 'userId', width: 120, title: '请求诊断用户', sort: true}
-                    , {field: 'doctorId', width:100,title: '章节名'}
+                    , {field: 'doctorId', width:100,title: '医生id'}
                     , {field: 'diagnoseTitle', title: '诊断说明'}
                     , {field: 'date', width: 200, title: '请求时间',templet: '<div>{{ layui.util.toDateString(d.date,"yyyy-MM-dd HH:mm:ss") }}</div>'}
-                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 180}
                 ]]
                 , page: true
+            });
+
+            //监听行工具事件
+            table.on('tool(diagnose)', function(obj){
+                var data = obj.data;
+                if(obj.event === 'del'){
+                    layer.confirm('真的删除行么', function(index){
+                        $.ajax({
+                            type : "POST",
+                            async: false,
+                            url :"<%=request.getContextPath()%>/diagnose/deleteDiagnose",
+                            contentType: "application/json;charset=UTF-8",
+                            data: JSON.stringify(data),
+                            success: function (result) {
+                                layer.msg(result.msg);
+                                table.reload('diagnose',{
+                                    url: '<%=request.getContextPath()%>/diagnose/selectAll',
+                                    height: $(document).height()-$('#diagnose').offset().top-20,
+                                    method: 'POST',
+                                    toolbar: '#toolbarDemo',
+                                    page:{
+                                        curr:1
+                                    }
+                                });
+                            }
+                        });
+                    });
+                } else if(obj.event === 'edit') {
+                    $.ajax({
+                        type:"POST",
+                        url:"<%=request.getContextPath()%>/dContent/edit",
+                        data:{"diagnoseId":data.diagnoseId},
+                        dataType:"json",
+                        success:function (result) {
+                            window.location.href = "/dContent/toDiagnoseContent?diagnoseId="+result.diagnoseId;
+                        }
+                    });
+                }
             });
 
         })

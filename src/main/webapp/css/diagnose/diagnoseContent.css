@@ -1,0 +1,38 @@
+#mainDiagnose{
+    width: 80%;
+    margin: 0 auto;
+}
+#chart{
+    height: 20em;
+    background-color: green;
+}
+#diagnoseContent{
+    height: auto;
+}
+#report{
+    display: flex;
+    height: 250px;
+    border: 2px gray solid;
+    margin: 10px auto;
+}
+#user_content{
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    line-height: 100%;
+}
+#dC_report_editor{
+    width: 80%;
+    padding: 20px 0px 0px 0px ;
+}
+#editor{
+    height: 80%;
+    width: 90%;
+}
+.w-e-toolbar{
+    height: 15% !important;
+    width: 100% !important;
+}
+.w-e-text-container{
+    height: 85% !important;
+}

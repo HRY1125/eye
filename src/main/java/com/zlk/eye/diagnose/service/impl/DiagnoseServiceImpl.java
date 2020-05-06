@@ -28,11 +28,11 @@ public class DiagnoseServiceImpl implements DiagnoseService {
     private DiagnoseContentMapper diagnoseContentMapper;
 
     @Override
-    public List<Diagnose> selectByID(Diagnose diagnose,Integer page,Integer limit) {
+    public List<Diagnose> selectByHumanID(Diagnose diagnose,Integer page,Integer limit) {
         Integer startPage = (page-1)*limit;
         diagnose.setStartPage(startPage);
         diagnose.setLimit(limit);
-        return diagnoseMapper.selectByID(diagnose);
+        return diagnoseMapper.selectByHumanID(diagnose);
     }
 
     @Override
@@ -52,5 +52,10 @@ public class DiagnoseServiceImpl implements DiagnoseService {
             message = "删除失败";
         }
         return message;
+    }
+
+    @Override
+    public Diagnose selectById(int diagnoseId) {
+        return diagnoseMapper.selectById(diagnoseId);
     }
 }
