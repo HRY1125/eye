@@ -11,6 +11,7 @@
     <title>首页</title>
 </head>
 <body>
+<%--引入头部--%>
 <jsp:include page="header.jsp"></jsp:include>
 登录成功！
 首页进来了~~~
