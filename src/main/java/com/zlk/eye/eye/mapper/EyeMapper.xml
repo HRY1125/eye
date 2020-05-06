@@ -14,7 +14,7 @@
 
     <!--查询全部-->
     <select id="queryAll" resultMap="EyeMap">
-        select *
+        select eye_id, user_id, eye_time, wangyuan_time, yunyan_time, xiyan_time, date
         from eye
     </select>
 

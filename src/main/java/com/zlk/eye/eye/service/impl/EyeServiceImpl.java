@@ -19,7 +19,7 @@ public class EyeServiceImpl implements EyeService {
     private EyeMapper eyeMapper;
 
     @Override
-    public List<Eye> queryAllByEye(Eye eye) {
+    public Eye queryAllByEye(Eye eye) {
         return eyeMapper.queryAllByEye(eye);
     }
 

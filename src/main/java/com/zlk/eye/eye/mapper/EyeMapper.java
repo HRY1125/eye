@@ -46,7 +46,7 @@ public interface EyeMapper {
      * @param eye 实例对象
      * @return 对象列表
      */
-    List<Eye> queryAllByEye(Eye eye);
+    Eye queryAllByEye(Eye eye);
 
     /**
      * 新增数据

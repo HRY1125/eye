@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.Date;
-import java.util.List;
 import java.util.TimeZone;
 
 /**
@@ -42,7 +41,7 @@ public class EyeController {
      */
     @RequestMapping("queryAll")
     @ResponseBody
-    public List<Eye> queryAll() {
+    public Eye queryAll() {
         Eye e = new Eye();
         e.setUserId("111");
         e.setDate(new Date());
@@ -72,9 +71,14 @@ public class EyeController {
         long twelve=zero+24*60*60*1000-1;//今天23点59分59秒的毫秒数
         String userId = "1111";
         Eye e =new Eye();
-        e.setEyeTime(s);
         e.setUserId(userId);
         e.setDate(new Date(zero));
+        Eye ey = eyeService.queryAllByEye(e);
+        if(ey!=null){
+            ey.setEyeTime(ey.getEyeTime()+s);
+            return eyeService.update(ey);
+        }
+        e.setEyeTime(s);
         return eyeService.insert(e);
     }
 }
