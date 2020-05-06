@@ -49,7 +49,7 @@ public class DiagnoseController {
         diagnose.setDoctorId(docterId);
 //        page=1;
 //        limit = 5;
-        List<Diagnose> diagnoseList = diagnoseService.selectByID(diagnose,page,limit);
+        List<Diagnose> diagnoseList = diagnoseService.selectByHumanID(diagnose,page,limit);
         Integer count = diagnoseService.selectCountById(diagnose);
         Map<String,Object> map = new HashMap<>();
         map.put("code",0);
@@ -64,6 +64,16 @@ public class DiagnoseController {
     public Map<String,Object> deleteDiagnose(int diagnoseId) throws Exception{
         String message = diagnoseService.deleteDiagnose(diagnoseId);
         Map<String,Object> map = new HashMap<>();
+        map.put("message",message);
+        return map;
+    }
+
+    @RequestMapping(value = "selectById",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> selectById(int diagnoseId) throws Exception{
+        Diagnose diagnose = diagnoseService.selectById(diagnoseId);
+        Map<String,Object> map = new HashMap<>();
+        map.put("diagnose",diagnose);
         return map;
     }
 }

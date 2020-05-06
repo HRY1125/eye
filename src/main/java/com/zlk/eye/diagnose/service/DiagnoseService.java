@@ -8,9 +8,11 @@ import java.util.List;
 
 public interface DiagnoseService {
 
-    List<Diagnose> selectByID(Diagnose diagnose,Integer page,Integer limit);
+    List<Diagnose> selectByHumanID(Diagnose diagnose,Integer page,Integer limit);
 
     Integer selectCountById(Diagnose diagnose);
 
     String deleteDiagnose(int diagnoseId);
+
+    Diagnose selectById(int diagnoseId);
 }

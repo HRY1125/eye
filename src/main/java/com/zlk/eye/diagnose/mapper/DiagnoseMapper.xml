@@ -10,7 +10,7 @@
         <result property="diagnoseTitle" column="diagnose_title" javaType="java.lang.String"/>
         <result property="date" column="date" javaType="java.util.Date"/>
     </resultMap>
-    <select id="selectByID" parameterType="com.zlk.eye.entity.Diagnose" resultMap="diagnoseEntityMap">
+    <select id="selectByHumanID" parameterType="com.zlk.eye.entity.Diagnose" resultMap="diagnoseEntityMap">
         select * from diagnose
         <where>
             <choose>
@@ -43,4 +43,7 @@
     <delete id="deleteDiagnose" parameterType="java.lang.Integer">
         delete from diagnose where diagnose_id = #{diagnoseId};
     </delete>
+    <select id="selectById" parameterType="java.lang.Integer" resultMap="diagnoseEntityMap">
+        select * from diagnose where diagnose_id = #{diagnoseId};
+    </select>
 </mapper>

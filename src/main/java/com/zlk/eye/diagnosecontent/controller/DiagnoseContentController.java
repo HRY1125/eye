@@ -1,6 +1,8 @@
 package com.zlk.eye.diagnosecontent.controller;
 
+import com.zlk.eye.diagnose.service.DiagnoseService;
 import com.zlk.eye.diagnosecontent.service.DiagnoseContentService;
+import com.zlk.eye.entity.Diagnose;
 import com.zlk.eye.entity.DiagnoseContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,12 +30,31 @@ public class DiagnoseContentController {
 
     @Autowired
     private DiagnoseContentService diagnoseContentService;
+    @Autowired
+    private DiagnoseService diagnoseService;
 
     @RequestMapping(value = "/toDiagnoseContent")
-    public ModelAndView toContent() throws Exception{
+    public ModelAndView toContent(HttpServletRequest request,@RequestParam Integer diagnoseId) throws Exception{
+//        String userId = (String) request.getSession().getAttribute("userId");
+//        String docterId = (String) request.getSession().getAttribute("docterId");
+        String userId = null;
+        String docterId = "医生";
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("diagnose/diagnoseList");
+//        int diagnoseId = 3;
+        mv.addObject("diagnoseId",diagnoseId);
+        mv.addObject("userId",userId);
+        mv.addObject("docterId",docterId);
+        mv.setViewName("diagnose/diagnoseContent");
         return mv;
+    }
+
+    @RequestMapping(value = "/edit")
+    @ResponseBody
+    public Map<String,Object> edit(HttpServletRequest request,@RequestParam Integer diagnoseId) throws Exception{
+        Map<String, Object> map = new HashMap<>();
+//        int diagnoseId = 3;
+        map.put("diagnoseId",diagnoseId);
+        return map;
     }
 
     @RequestMapping(value = "/selectDContent",method = RequestMethod.POST)
@@ -41,6 +62,9 @@ public class DiagnoseContentController {
     public Map<String, Object> selectDContent(@RequestParam Integer diagnoseId, Integer page, Integer limit) throws Exception {
         List<DiagnoseContent> diagnoseContents = diagnoseContentService.selectAllByDiagnoseId(diagnoseId, page, limit);
         Integer count = diagnoseContentService.selectCountByDiagnoseId(diagnoseId);
+        Diagnose diagnose = diagnoseService.selectById(diagnoseId);
+        String userId = diagnose.getUserId();
+        String doctorId = diagnose.getDoctorId();
         Integer pages;
         if (count%limit==0){
             pages = count/limit;
@@ -48,8 +72,10 @@ public class DiagnoseContentController {
             pages = count/limit +1;
         }
         Map<String, Object> map = new HashMap<>();
-        map.put("notes",diagnoseContents);
+        map.put("diagnoseContents",diagnoseContents);
         map.put("pages",pages);
+        map.put("userId",userId);
+        map.put("doctorId",doctorId);
         return map;
     }
 

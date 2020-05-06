@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlk.eye.eye.mapper.EyeMapper">
+
+    <resultMap type="com.zlk.eye.eye.entity.Eye" id="EyeMap">
+        <result property="eyeId" column="eye_id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="eyeTime" column="eye_time" jdbcType="INTEGER"/>
+        <result property="wangyuanTime" column="wangyuan_time" jdbcType="INTEGER"/>
+        <result property="yunyanTime" column="yunyan_time" jdbcType="INTEGER"/>
+        <result property="xiyanTime" column="xiyan_time" jdbcType="INTEGER"/>
+        <result property="date" column="date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询全部-->
+    <select id="queryAll" resultMap="EyeMap">
+        select eye_id, user_id, eye_time, wangyuan_time, yunyan_time, xiyan_time, date
+        from eye
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="EyeMap">
+        select
+          eye_id, user_id, eye_time, wangyuan_time, yunyan_time, xiyan_time, date
+        from eye
+        where eye_id = #{eyeId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="EyeMap">
+        select
+          eye_id, user_id, eye_time, wangyuan_time, yunyan_time, xiyan_time, date
+        from eye
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAllByEye" resultMap="EyeMap">
+        select
+        eye_id, user_id, eye_time, wangyuan_time, yunyan_time, xiyan_time, date
+        from eye
+        <where>
+            <if test="eyeId != null">
+                and eye_id = #{eyeId}
+            </if>
+            <if test="userId != null and userId != ''">
+                and user_id = #{userId}
+            </if>
+            <if test="eyeTime != null">
+                and eye_time = #{eyeTime}
+            </if>
+            <if test="wangyuanTime != null">
+                and wangyuan_time = #{wangyuanTime}
+            </if>
+            <if test="yunyanTime != null">
+                and yunyan_time = #{yunyanTime}
+            </if>
+            <if test="xiyanTime != null">
+                and xiyan_time = #{xiyanTime}
+            </if>
+            <if test="date != null">
+                and date >= #{date}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="eyeId" useGeneratedKeys="true">
+        insert into eye(user_id, eye_time, wangyuan_time, yunyan_time, xiyan_time, date)
+        values (#{userId}, #{eyeTime}, #{wangyuanTime}, #{yunyanTime}, #{xiyanTime}, #{date})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update eye
+        <set>
+            <if test="userId != null and userId != ''">
+                user_id = #{userId},
+            </if>
+            <if test="eyeTime != null">
+                eye_time = #{eyeTime},
+            </if>
+            <if test="wangyuanTime != null">
+                wangyuan_time = #{wangyuanTime},
+            </if>
+            <if test="yunyanTime != null">
+                yunyan_time = #{yunyanTime},
+            </if>
+            <if test="xiyanTime != null">
+                xiyan_time = #{xiyanTime},
+            </if>
+            <if test="date != null">
+                date = #{date},
+            </if>
+        </set>
+        where eye_id = #{eyeId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from eye where eye_id = #{eyeId}
+    </delete>
+
+</mapper>
