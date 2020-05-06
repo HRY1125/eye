@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper>
+<mapper namespace="com.zlk.eye.diagnosecontent.mapper.DiagnoseContentMapper">
     <resultMap id="diagnoseContentMap" type="com.zlk.eye.entity.DiagnoseContent">
         <id property="dcId" column="dc_id" javaType="java.lang.Integer"/>
         <result property="content" column="content" javaType="java.lang.String"/>

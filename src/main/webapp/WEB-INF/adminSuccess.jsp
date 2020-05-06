@@ -104,4 +104,8 @@
     </div>
 </div>
 </body>
+<script>
+    layui.use('element', function(){
+    });
+</script>
 </html>
