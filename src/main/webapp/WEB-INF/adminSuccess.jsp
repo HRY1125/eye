@@ -87,7 +87,7 @@
             <li class="layui-nav-item layui-nav-itemed">
                 <a href="javascript:;">系统管理</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="<%=request.getContextPath()%>/" target="maintarget">管理用户发布新闻</a></dd>
+                    <dd><a href="<%=request.getContextPath()%>/adminNews/toNewsManage" target="maintarget">新闻动态管理</a></dd>
                     <dd><a href="<%=request.getContextPath()%>/adminQuestion/toQuestionManager" target="maintarget">常见问题管理</a></dd>
                     <dd><a href="<%=request.getContextPath()%>/" target="maintarget">上传商品信息</a></dd>
                 </dl>
