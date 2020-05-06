@@ -62,7 +62,7 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-inline layui-input-block">
-                    <input type="submit" class="layui-btn" value="确定">
+                    <input type="submit" class="layui-btn" value="提交">
                     <input type="reset" class="layui-btn" value="重置">
                 </div>
             </div>
@@ -77,7 +77,7 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block" style="margin-left: 195px">
-                    <input type="submit" class="layui-btn" value="保存">
+                    <input type="submit" class="layui-btn" value="提交">
                     <%--<input type="reset" class="layui-btn" value="重置">--%>
                 </div>
             </div>
