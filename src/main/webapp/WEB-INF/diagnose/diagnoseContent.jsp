@@ -28,10 +28,16 @@
         <div id="report">
             <div id="user_content">
                 <c:if test="${userId != null}">
-                    <span id="user_id">${userId}</span>
+                    <div class="user" id="user_id">
+                        <span>用户</span>
+                        <span>${userId}</span>
+                    </div>
                 </c:if>
                 <c:if test="${docterId != null}">
-                    <span id="docter_id">${docterId}</span>
+                    <div class="user" id="docter_id">
+                        <span>医生</span>
+                        <span>${docterId}</span>
+                    </div>
                 </c:if>
             </div>
             <div id="dC_report_editor">
