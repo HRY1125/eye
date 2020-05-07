@@ -56,6 +56,14 @@ public class EyeController {
     public String exercisetime() {
         return "exercisetime";
     }
+    /**
+     * 跳转计时页面
+     * @return
+     */
+    @RequestMapping("optionPage")
+    public String optionPage() {
+        return "optionPage";
+    }
 
     /**
      * 添加计时的时间
