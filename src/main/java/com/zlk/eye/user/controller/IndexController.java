@@ -33,6 +33,8 @@ public class IndexController {
         return "firstpage";
     }
 
+    
+
     /**
      * 跳转至注册页面
      * @return
