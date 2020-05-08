@@ -8,7 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/layui/css/layui.css">
@@ -43,7 +43,6 @@
 <input type="hidden" value="${msg}" id="msg">
 <div id="addForm" hidden="hidden">
     <form action="<%=request.getContextPath()%>/goods/insert" class="form layui-form" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="g_id" id="g_id">
         <%--商品名称--%>
         <div class="layui-form-item" style="margin-top: 2vw;">
             <label class="layui-form-label">商品名称</label>
@@ -59,7 +58,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">生产日期</label>
                 <div class="layui-input-block">
-                    <input type="text" name="g_date" id="g_date" autocomplete="off" class="layui-input">
+                    <input type="text" name="g_date" id="g_date1" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>
@@ -125,7 +124,7 @@
         <div class="layui-form-item" style="margin-top: 2vw;">
             <label class="layui-form-label">商品名称</label>
             <div class="layui-input-block">
-                <input type="text" name="g_name" placeholder="请输入商品名称(不能包含空格数字)" autocomplete="off" class="layui-input"
+                <input type="text" name="g_name" id="g_name" placeholder="请输入商品名称(不能包含空格数字)" autocomplete="off" class="layui-input"
                        onkeyup="value=value.replace(/[\d]/g,'') "onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[\d]/g,''))"
                        maxlength="15">
             </div>
@@ -136,7 +135,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">生产日期</label>
                 <div class="layui-input-block">
-                    <input type="text" name="g_date" id="g_date1" autocomplete="off" class="layui-input">
+                    <input type="text" name="g_date" id="g_date" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>
@@ -148,7 +147,7 @@
                 <button type="button" class="layui-btn" id="test">上传图片</button>
                 <input type="hidden" id="img_url" name="g_url"/>
                 <div class="layui-upload-list">
-                    <img class="layui-upload-img" name="g_url" id="g_url" th:value="*{g_url}">
+                    <img class="layui-upload-img" name="g_url" id="g_url" th:value="${g_url}">
                     <p id="demoText"></p>
                 </div>
             </div>
@@ -158,21 +157,21 @@
         <div class="layui-form-item" style="margin-top: 2vw;">
             <label class="layui-form-label">商品简介</label>
             <div class="layui-input-block">
-                <textarea name="g_profile" placeholder="请输入商品简介(不超过100字)" class="layui-textarea" maxlength="100"></textarea>
+                <textarea name="g_profile" id="g_profile" placeholder="请输入商品简介(不超过100字)" class="layui-textarea" maxlength="100"></textarea>
             </div>
         </div>
         <%--商品单价--%>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">商品单价</label>
             <div class="layui-input-block">
-                <input type="text" name="g_money" autocomplete="off" class="layui-input">
+                <input type="text" name="g_money" id="g_money" autocomplete="off" class="layui-input">
             </div>
         </div>
         <%--商品数量--%>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">商品数量</label>
             <div class="layui-input-block">
-                <input type="text" name="g_count" autocomplete="off" class="layui-input">
+                <input type="text" name="g_count" id="g_count" autocomplete="off" class="layui-input">
             </div>
         </div>
         <input type="submit" hidden="hidden" id="updateSubmit" value="确认">
@@ -402,12 +401,6 @@
                 // alert("上传成功"+res.msg);
                 document.getElementById("img_url1").value = res.data.src;
                 // document.getElementById("picture").value = res.data.src();
-                /*if(res.code==0){
-                    $('.layui-upload-list').html('<img class="layui-upload-list" style="width:80px;height:100px" src="'+res.src+'" id="demo1"> <p id="demoText"></p>');
-                    $('.layui-btn').css({"margin-left":"104px","width":"90px","margin-top":"6px"});
-                    $('.layui-btn').text("重新上传");
-                    return layer.msg(res.msg,{time:700});
-                }*/
             }
             ,error: function(){
                 //演示失败状态，并实现重传
@@ -439,12 +432,6 @@
                 // alert("上传成功"+res.msg);
                 document.getElementById("img_url").value = res.data.src;
                 // document.getElementById("picture").value = res.data.src();
-                /*if(res.code==0){
-                    $('.layui-upload-list').html('<img class="layui-upload-list" style="width:80px;height:100px" src="'+res.src+'" id="demo1"> <p id="demoText"></p>');
-                    $('.layui-btn').css({"margin-left":"104px","width":"90px","margin-top":"6px"});
-                    $('.layui-btn').text("重新上传");
-                    return layer.msg(res.msg,{time:700});
-                }*/
             }
             ,error: function(){
                 //演示失败状态，并实现重传
