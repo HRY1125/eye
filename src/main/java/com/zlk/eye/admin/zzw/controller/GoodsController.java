@@ -1,6 +1,7 @@
 package com.zlk.eye.admin.zzw.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.zlk.eye.admin.util.UUIDUtils;
 import com.zlk.eye.admin.zzw.entity.Goods;
 import com.zlk.eye.admin.zzw.service.GoodsService;
 import com.zlk.eye.admin.zzw.util.Pagination;
@@ -122,15 +123,7 @@ public class GoodsController {
     @RequestMapping(value = "/insert")
     public ModelAndView insert(@Valid Goods goods, BindingResult bindingResult){
         ModelAndView mv=new ModelAndView();
-        /**判断商品id是否重复*/
-        /*List<Goods> goodsByGoodsId = (List<Goods>) goodsService.selectGoodsByGoodsId(goods.getG_id());
-        if(goodsByGoodsId != null){
-            mv.addObject("flag","true");
-            mv.addObject("msg","商品ID已存在");
-            mv.setViewName("goodsManage");
-
-            return mv;
-        }*/
+        goods.setG_id(UUIDUtils.getId());
 
         Integer flag = goodsService.addGoods(goods);
         if(flag==1){

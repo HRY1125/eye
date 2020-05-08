@@ -75,23 +75,6 @@
                     </div>
                 </div>
             </div>
-        <%--<div class="layui-form-item">
-            <label class="layui-form-label">商品图片</label>
-            <div class="layui-input-block">
-                <input type="text" name="g_url" autocomplete="off" class="layui-input">
-            </div>
-        </div>--%>
-        <%--<div class="layui-form-item layui-upload">
-            <label class="layui-form-label">商品图片</label>
-            <div class="layui-input-block">
-                &lt;%&ndash;图片上传：<input type="file" name="g_url" autocomplete="off" class="layui-input">
-                <input type="submit" value="提交">&ndash;%&gt;
-                <button type="button" class="layui-btn" id="test2">图片上传</button>
-                <div class="layui-upload-list">
-                    <img class="layui-upload-img" name="g_url" id="demo2" style="width: 100px;height: 100px">
-                </div>
-            </div>
-        </div>--%>
 
         <%--商品简介--%>
         <div class="layui-form-item" style="margin-top: 2vw;">
