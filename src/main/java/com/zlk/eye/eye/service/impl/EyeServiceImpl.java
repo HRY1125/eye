@@ -3,9 +3,9 @@ package com.zlk.eye.eye.service.impl;
 import com.zlk.eye.eye.entity.Eye;
 import com.zlk.eye.eye.mapper.EyeMapper;
 import com.zlk.eye.eye.service.EyeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Service
 public class EyeServiceImpl implements EyeService {
-    @Resource
+    @Autowired
     private EyeMapper eyeMapper;
 
     @Override
