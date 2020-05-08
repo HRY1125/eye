@@ -17,7 +17,7 @@
     <div class="layui-fluid">
         <table class="layui-table" id="newsManage" lay-filter="test"></table>
     </div>
-    <div id="addForm" hidden="hidden" style="padding: 25px">
+    <div id="addForm" hidden="hidden" style="padding: 20px">
         <form action="<%=request.getContextPath() %>/adminNews/addNews" method="post" class="layui-form">
             <div class="layui-form-item">
                 <label class="layui-form-label">新闻标题：</label>
@@ -34,12 +34,12 @@
             <div class="layui-form-item">
                 <div class="layui-input-inline layui-input-block">
                     <input type="submit" class="layui-btn" value="提交">
-                    <input type="reset" class="layui-btn" value="重置">
+                    <input type="reset" class="layui-btn layui-btn-primary" value="重置">
                 </div>
             </div>
         </form>
     </div>
-    <div id="editForm" hidden="hidden" style="padding: 25px">
+    <div id="editForm" hidden="hidden" style="padding: 20px">
         <form action="<%=request.getContextPath() %>/adminNews/updateNews" method="post" class="layui-form">
             <input type="hidden" id="newsId" name="newsId">
             <input type="hidden" id="createTime1" name="createTime">
@@ -63,27 +63,27 @@
             <div class="layui-form-item">
                 <div class="layui-input-inline layui-input-block">
                     <input type="submit" class="layui-btn" value="提交">
-                    <input type="reset" class="layui-btn" value="重置">
+                    <input type="reset" class="layui-btn layui-btn-primary" value="重置">
                 </div>
             </div>
         </form>
     </div>
-    <div id="textAreaForm" hidden="hidden" style="padding: 25px">
+    <div id="textAreaForm" hidden="hidden" style="padding: 20px">
         <form action="<%=request.getContextPath() %>/adminNews/textAreaUpdate" method="post" class="layui-form">
             <input type="hidden" id="textAreaNewsId" name="newsId">
             <input type="hidden" id="createTime2" name="createTime">
             <div class="layui-form-item">
-                <textarea class="layui-textarea" id="textAreaNewsContent" style="display: none" name="newsContent" placeholder="开始撰写..." required lay-verify="required"></textarea>
+                <textarea id="textAreaNewsContent" class="layui-textarea" name="newsContent" placeholder="开始撰写..." required lay-verify="required" style="height: 200px"></textarea>
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block" style="margin-left: 195px">
                     <input type="submit" class="layui-btn" value="提交">
-                    <%--<input type="reset" class="layui-btn" value="重置">--%>
+                    <input type="reset" class="layui-btn layui-btn-primary" value="重置">
                 </div>
             </div>
         </form>
     </div>
-    <script>
+    <script type="text/javascript">
         layui.use(['layer', 'table', 'form'], function () {
             var table = layui.table;
             var layer = layui.layer;
@@ -100,7 +100,7 @@
                     {title : '新闻内容',align : 'center',width : 180,
                         toolbar :
                             '<div>' +
-                            '<a class="layui-btn" lay-event="lookEdit">查看 / 编辑</a>' +
+                            '<a class="layui-btn layui-btn-sm" lay-event="lookEdit">查看 / 编辑</a>' +
                             '</div>'
                     },
                     {field: 'approval', title: '审核', width: 180,align:'center',templet:function (d) {
@@ -112,8 +112,8 @@
                     {fixed : 'right',title : '操作',width : 200,align : 'center',
                         toolbar :
                             '<div class="layui-btn-group">' +
-                            '<a class="layui-btn" lay-event="edit">编辑</a>' +
-                            '<a class="layui-btn layui-btn-danger" lay-event="del">删除</a>' +
+                            '<a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>' +
+                            '<a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</a>' +
                             '</div>'
                     }
                 ] ],
@@ -190,12 +190,12 @@
             });
         });
 
-        layui.use('layedit', function(){
+        /*layui.use('layedit', function(){
             var layedit = layui.layedit;
             layedit.build('textAreaNewsContent', {
-                tool : ['strong','underline','|','left','center','right']
+                tool : ['strong', 'underline', '|', 'left', 'center', 'right']
             });
-        });
+        });*/
 
         layui.use('laydate',function(){
             var laydate=layui.laydate;
