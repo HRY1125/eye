@@ -59,7 +59,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">生产日期</label>
                 <div class="layui-input-block">
-                    <input type="text" name="g_date" id="g_date1" autocomplete="off" class="layui-input">
+                    <input type="text" name="g_date" id="g_date" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>
@@ -125,18 +125,18 @@
         <div class="layui-form-item" style="margin-top: 2vw;">
             <label class="layui-form-label">商品名称</label>
             <div class="layui-input-block">
-                <input type="text" name="g_name" id="g_name" placeholder="请输入商品名称(不能包含空格数字)" autocomplete="off" class="layui-input"
+                <input type="text" name="g_name" placeholder="请输入商品名称(不能包含空格数字)" autocomplete="off" class="layui-input"
                        onkeyup="value=value.replace(/[\d]/g,'') "onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[\d]/g,''))"
                        maxlength="15">
             </div>
         </div>
 
         <%--商品生产日期--%>
-        <div class="layui-form-item">
+        <div class="layui-form-item"  style="margin-top: 2vw;">
             <div class="layui-inline">
                 <label class="layui-form-label">生产日期</label>
                 <div class="layui-input-block">
-                    <input type="text" name="g_date" id="g_date" autocomplete="off" class="layui-input">
+                    <input type="text" name="g_date" id="g_date1" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>
@@ -155,24 +155,24 @@
         </div>
 
         <%--商品简介--%>
-        <div class="layui-form-item layui-form-text">
+        <div class="layui-form-item" style="margin-top: 2vw;">
             <label class="layui-form-label">商品简介</label>
             <div class="layui-input-block">
-                <textarea name="g_profile" id="g_profile" placeholder="请输入商品简介(不超过100字)" class="layui-textarea" maxlength="100"></textarea>
+                <textarea name="g_profile" placeholder="请输入商品简介(不超过100字)" class="layui-textarea" maxlength="100"></textarea>
             </div>
         </div>
         <%--商品单价--%>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">商品单价</label>
             <div class="layui-input-block">
-                <input type="text" name="g_money" id="g_money" autocomplete="off" class="layui-input">
+                <input type="text" name="g_money" autocomplete="off" class="layui-input">
             </div>
         </div>
         <%--商品数量--%>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">商品数量</label>
             <div class="layui-input-block">
-                <input type="text" name="g_count" id="g_count" autocomplete="off" class="layui-input">
+                <input type="text" name="g_count" autocomplete="off" class="layui-input">
             </div>
         </div>
         <input type="submit" hidden="hidden" id="updateSubmit" value="确认">
@@ -387,7 +387,7 @@
             elem: '#test1'
             ,url: '<%=request.getContextPath()%>/goods/upload'
             ,before: function(obj){
-                files = obj.pushFile(); //将每次选择的文件追加到文件队列
+                g_url = obj.pushFile(); //将每次选择的文件追加到文件队列
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, g_url, result){//回调函数达到预览效果
                     $('#g_url').attr('src', result); //图片链接（base64）
@@ -424,7 +424,7 @@
             elem: '#test'
             ,url: '<%=request.getContextPath()%>/goods/upload'
             ,before: function(obj){
-                files = obj.pushFile(); //将每次选择的文件追加到文件队列
+                g_url = obj.pushFile(); //将每次选择的文件追加到文件队列
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, g_url, result){//回调函数达到预览效果
                     $('#g_url').attr('src', result); //图片链接（base64）

@@ -37,12 +37,12 @@ public class GoodsController {
 
     /**
      * 图片上传本地
-     * @param file
+     * @param g_url
      * @return
      */
     @RequestMapping("/upload")
     @ResponseBody
-    public JSONObject upload(MultipartFile file, @Valid Goods goods, BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException{
+    /*public JSONObject upload(MultipartFile g_url, @Valid Goods goods, BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException{
         JSONObject res = new JSONObject();
         JSONObject resUrl = new JSONObject();
 
@@ -51,7 +51,7 @@ public class GoodsController {
         String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
         String path = "D:/eye/";
         UUID uuid=UUID.randomUUID();
-        String originalFilename = file.getOriginalFilename();
+        String originalFilename = g_url.getOriginalFilename();
         // String fileName = uuid.toString() + originalFilename;
         String extendName = originalFilename.substring(originalFilename.lastIndexOf("."), originalFilename.length());
         String fileName = uuid.toString() + extendName;
@@ -64,12 +64,12 @@ public class GoodsController {
             System.out.println(filepath.getParentFile());
         }
 //      if(!filepath.exists()) {
-        file.transferTo(dir);
+        g_url.transferTo(dir);
         //获得当前项目所在路径
         String pathRoot=request.getSession().getServletContext().getRealPath("");
         System.out.println("当前项目所在路径："+pathRoot);
 
-        String sqlFile = "http://localhost:8003/"+fileName;
+        String sqlFile = "http://localhost:8080/"+fileName;
         //Goods goods = new Goods();
         goods.setG_url(sqlFile);
         goodsService.addGoods(goods);
@@ -83,40 +83,30 @@ public class GoodsController {
 
         return res;
 
-        /*Map<String, String> map = new HashMap<>();
-        map.put("filePath", path);
-        map.put("fileName", fileName);
+    }*/
 
-        Map<String, Object> result = new HashMap<>();
-        result.put("code", 0);
-        result.put("msg", "上传成功");
-        result.put("count", 1);
-        result.put("data", map);
-        return result;*/
-
-    }
-    /*public String fileUpload(MultipartFile file,@Valid Goods goods, BindingResult bindingResult) throws IOException {
-        *//**
+    public String fileUpload(MultipartFile g_url,@Valid Goods goods, BindingResult bindingResult) throws IOException {
+        /**
          * 上传图片
-         *//*
+         */
         //图片上传成功后，将图片的地址写到数据库
         //保存图片的路径（这是存在我项目中的images下了，你们可以设置路径）
         String filePath = "D:\\eye";
         //获取原始图片的拓展名
-        String originalFilename = file.getOriginalFilename();
+        String originalFilename = g_url.getOriginalFilename();
         //新的文件名字
         String newFileName = UUID.randomUUID() + originalFilename;
         //封装上传文件位置的全路径
         File targetFile = new File(filePath, newFileName);
         //把本地文件上传到封装上传文件位置的全路径
-        file.transferTo(targetFile);
+        g_url.transferTo(targetFile);
         goods.setG_url(newFileName);
-        *//**
+        /**
          * 保存商品
-         *//*
+         */
         goodsService.addGoods(goods);
         return "goodsManage";
-    }*/
+    }
 
     /**
      * 跳转到商品页面
@@ -186,7 +176,6 @@ public class GoodsController {
     /**
      * 通过商品id修改商品信息
      * @param goods
-     * @param request
      * @return
      */
     @RequestMapping(value = "/update")
@@ -194,7 +183,7 @@ public class GoodsController {
     public ModelAndView update( Goods goods){
         ModelAndView mv=new ModelAndView();
         //判断商品是否更改，更改后判断更改后的商品是否存在
-        List<Goods> goodsByName = goodsService.selectGoodsByName(goods.getG_name());
+        /*List<Goods> goodsByName = goodsService.selectGoodsByName(goods.getG_name());
         Goods goodsByGoodsId = goodsService.selectGoodsByGoodsId(goods.getG_id());
 
         if(!goods.getG_name().equals(goodsByGoodsId.getG_name())&&goodsByName!=null){
@@ -202,7 +191,7 @@ public class GoodsController {
             mv.addObject("msg","商品已存在");
             mv.setViewName("goodsManage");
             return mv;
-        }
+        }*/
         //修改商品信息，修改完成提交，提示:修改成功；否则，提示：修改失败
         Integer flag = goodsService.updateGoodsByGoodsId(goods);
         if(flag == 1){
