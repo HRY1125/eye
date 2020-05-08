@@ -1,7 +1,7 @@
 package com.zlk.eye.admin.qkq.controller;
 
-import com.zlk.eye.admin.qkq.entity.News;
-import com.zlk.eye.admin.qkq.service.NewsManageService;
+import com.zlk.eye.admin.qkq.entity.Questions;
+import com.zlk.eye.admin.qkq.service.QuestionsManageService;
 import com.zlk.eye.admin.util.Pagination;
 import com.zlk.eye.admin.util.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,41 +16,41 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @program: NewsManageController
+ * @program: QuestionsManageController
  * @description:
  * @author: QianKeQin
- * @date: 2020/5/6 13:51
+ * @date: 2020/5/8 12:23
  */
 @Controller
-@RequestMapping(value = "/adminNews")
-public class NewsManageController {
+@RequestMapping(value = "/adminQuestions")
+public class QuestionsManageController {
 
     @Autowired
-    private NewsManageService newsManageService;
+    private QuestionsManageService questionsManageService;
 
-    @RequestMapping(value = "/toNewsManage")
+    @RequestMapping(value = "/toQuestionsManage")
     public ModelAndView toQuestionManager(){
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("newsManage");
+        mv.setViewName("questionsManage");
         return mv;
     }
 
-    @RequestMapping(value = "/newsManage")
+    @RequestMapping(value = "/questionsManage")
     @ResponseBody
     public Map<String, Object> list(Pagination pagination) {
-        List<News> newsList=newsManageService.findNewsByAdmin(pagination);
-        Integer count=newsManageService.findCountByAdmin(pagination);
+        List<Questions> questionsList=questionsManageService.findQuestionsByAdmin(pagination);
+        Integer count=questionsManageService.findCountByAdmin(pagination);
         Map<String, Object> map=new HashMap<>();
         map.put("code","0");
         map.put("count",count);
-        map.put("data",newsList);
+        map.put("data",questionsList);
         return map;
     }
 
-    @RequestMapping(value = "/deleteNews")
+    @RequestMapping(value = "/deleteQuestions")
     @ResponseBody
-    public Map<String, Object> delete(String newsId) {
-        Integer flag=newsManageService.deleteNewsByNewsId(newsId);
+    public Map<String, Object> delete(String questionId) {
+        Integer flag=questionsManageService.deleteQuestionsByQuestionId(questionId);
         Map<String, Object> map=new HashMap<>();
         if(flag == 1) {
             map.put("msg","删除成功");
@@ -60,52 +60,46 @@ public class NewsManageController {
         return map;
     }
 
-    @RequestMapping(value = "/addNews")
+    @RequestMapping(value = "/addQuestions")
     @ResponseBody
-    public ModelAndView add(News news) {
+    public ModelAndView add(Questions questions) {
         ModelAndView mv=new ModelAndView();
-        news.setNewsId(UUIDUtils.getId());
-        news.setCreateTime(new Date());
-        news.setApproval(1);
-        Integer flag=newsManageService.addNews(news);
+        questions.setQuestionId(UUIDUtils.getId());
+        questions.setCreateTime(new Date());
+        Integer flag=questionsManageService.addQuestions(questions);
         if(flag == 1) {
             mv.addObject("flag","true");
             mv.addObject("msg","新增成功");
-            mv.setViewName("newsManage");
+            mv.setViewName("questionsManage");
             return mv;
         }else {
             mv.addObject("flag","true");
             mv.addObject("msg","新增失败");
-            mv.setViewName("newsManage");
+            mv.setViewName("questionsManage");
             return mv;
         }
     }
 
-    @RequestMapping(value = "/updateNews")
+    @RequestMapping(value = "/updateContent")
     @ResponseBody
-    public ModelAndView update(News news) {
+    public ModelAndView updateContent(Questions questions) {
         ModelAndView mv=new ModelAndView();
-        Integer flag=newsManageService.updateNewsByNewsId(news);
+        Integer flag=questionsManageService.updateContentByTextArea(questions);
         if(flag == 1) {
-            mv.addObject("flag","true");
-            mv.addObject("msg","修改成功");
-            mv.setViewName("newsManage");
+            mv.setViewName("questionsManage");
             return mv;
         }else {
-            mv.addObject("flag","true");
-            mv.addObject("msg","修改失败");
-            mv.setViewName("newsManage");
-            return mv;
+            return null;
         }
     }
 
-    @RequestMapping(value = "/textAreaUpdate")
+    @RequestMapping(value = "/updateAnswer")
     @ResponseBody
-    public ModelAndView textAreaUpdate(News news) {
+    public ModelAndView updateAnswer(Questions questions) {
         ModelAndView mv=new ModelAndView();
-        Integer flag=newsManageService.updateContentByTextArea(news);
+        Integer flag=questionsManageService.updateAnswerByTextArea(questions);
         if(flag == 1) {
-            mv.setViewName("newsManage");
+            mv.setViewName("questionsManage");
             return mv;
         }else {
             return null;
