@@ -1,5 +1,6 @@
 package com.zlk.eye.admin.zzw.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zlk.eye.admin.zzw.entity.Goods;
 import com.zlk.eye.admin.zzw.service.GoodsService;
 import com.zlk.eye.admin.zzw.util.Pagination;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -40,34 +42,46 @@ public class GoodsController {
      */
     @RequestMapping("/upload")
     @ResponseBody
-    public Map<String,Object> uploadImage(@RequestParam("g_url") MultipartFile file, HttpServletRequest request) {
-        Assert.notNull(file, "上传文件不能为空");
-        String filepath = request.getServletContext().getRealPath("/goods");
-        String filename = System.currentTimeMillis() + file.getOriginalFilename();
-        //确保路径存在
-        File file2 = new File(filepath);
-        if (!file2.exists()) {
-            file2.mkdirs();
-        }
-        String savepath = filepath + "\\" + filename;
-        System.out.println("图片保存路径:" + savepath);
-        Map map = new HashMap<String, Object>();
-        try {
-            //保存文件到服务器
-            file.transferTo(new File(savepath));
-            //保存到数据库
+    public JSONObject upload(@RequestParam("g_url")MultipartFile file, Goods goods, HttpServletRequest request) throws IllegalStateException, IOException{
+        JSONObject res = new JSONObject();
+        JSONObject resUrl = new JSONObject();
 
-            //返回json
-            map.put("msg", "ok");
-            map.put("code", 200);
-
-        } catch (Exception e) {
-            map.put("msg", "error");
-            map.put("code", 0);
-            e.printStackTrace();
+        //String path = request.getSession().getServletContext().getRealPath("upload");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式  HH:mm:ss
+        String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+        String path = "D:/eye/";
+        UUID uuid=UUID.randomUUID();
+        String originalFilename = file.getOriginalFilename();
+        // String fileName = uuid.toString() + originalFilename;
+        String extendName = originalFilename.substring(originalFilename.lastIndexOf("."), originalFilename.length());
+        String fileName = uuid.toString() + extendName;
+        File dir = new File(path+fileName);
+        File filepath = new File(path);
+        System.out.println("路径=="+filepath.getParentFile());
+        if(!filepath.getParentFile().exists()){
+            filepath.getParentFile().mkdirs();
+        }else{
+            System.out.println(filepath.getParentFile());
         }
 
-        return map;
+        file.transferTo(dir);
+        //获得当前项目所在路径
+        String pathRoot=request.getSession().getServletContext().getRealPath("");
+        System.out.println("当前项目所在路径："+pathRoot);
+
+        String sqlFile = "http://localhost:8080/"+fileName;
+        goods.setG_url(sqlFile);
+        goodsService.addGoods(goods);
+
+        resUrl.put("src", sqlFile);
+        res.put("code", 0);
+        res.put("msg", "上传成功");
+        res.put("data", resUrl);
+        String str="";
+        str = "{\"code\": 0,\"msg\": \"\",\"data\": {\"src\":\"" +dir + "\"}}";
+
+        return res;
+
     }
 
     /**
@@ -153,16 +167,6 @@ public class GoodsController {
     @ResponseBody
     public ModelAndView update( Goods goods, HttpServletRequest request){
         ModelAndView mv=new ModelAndView();
-        //判断商品是否更改，更改后判断更改后的商品是否存在
-        List<Goods> goodsByName = goodsService.selectGoodsByName(goods.getG_name());
-        Goods goodsByGoodsId = goodsService.selectGoodsByGoodsId(goods.getG_id());
-
-        if(!goods.getG_name().equals(goodsByGoodsId.getG_name())&&goodsByName!=null){
-            mv.addObject("flag","true");
-            mv.addObject("msg","商品已存在");
-            mv.setViewName("goodsManage");
-            return mv;
-        }
         //修改商品信息，修改完成提交，提示:修改成功；否则，提示：修改失败
         Integer flag = goodsService.updateGoodsByGoodsId(goods);
         if(flag == 1){

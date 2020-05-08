@@ -327,66 +327,13 @@
     layui.use('upload', function(){
         var $ = layui.jquery
             ,upload = layui.upload;
-
-        //普通图片上传
-
-        /*var uploadInst = upload.render({
-            elem: '#test1'
-            ,url: '/goods/upload'
-            ,accept: 'images'
-            ,acceptMime: 'image/!*'
-            ,size: '1024*5'
-            ,before: function(obj){
-                //预读本地文件示例，不支持ie8
-                obj.preview(function(index, g_url, result){
-                    $('#g_url').attr('src', result); //图片链接（base64）
-                });
-            }
-            ,done: function(json){
-                //如果上传失败
-                if(json.code == 0){
-                    return layer.msg('上传失败-------');
-                }
-                //上传成功
-                if(json.code > 0){
-                    return layer.msg('上传成功--------');
-                }
-            }
-
-
-        });
-
-        var uploadInst = upload.render({
-            elem: '#test2'
-            ,url: '/goods/upload'
-            ,accept: 'images'
-            ,acceptMime: 'image/!*'
-            ,size: '1024*5'
-            ,before: function(obj){
-                //预读本地文件示例，不支持ie8
-                obj.preview(function(index, g_url, result){
-                    $('#demo2').attr('src', result); //图片链接（base64）
-                });
-            }
-            ,done: function(json){
-                //如果上传失败
-                if(json.code == 0){
-                    return layer.msg('上传失败-------');
-                }
-                //上传成功
-                if(json.code > 0){
-                    return layer.msg('上传成功--------');
-                }
-            }
-
-
-        });*/
-
+        //图片上传
         var uploadInst = upload.render({
             elem: '#test1'
             ,url: '<%=request.getContextPath()%>/goods/upload'
+            ,size: '1024*5'
             ,before: function(obj){
-                g_url = obj.pushFile(); //将每次选择的文件追加到文件队列
+                files = obj.pushFile(); //将每次选择的文件追加到文件队列
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, g_url, result){//回调函数达到预览效果
                     $('#g_url').attr('src', result); //图片链接（base64）
@@ -400,7 +347,6 @@
                 layer.msg(res.msg);
                 // alert("上传成功"+res.msg);
                 document.getElementById("img_url1").value = res.data.src;
-                // document.getElementById("picture").value = res.data.src();
             }
             ,error: function(){
                 //演示失败状态，并实现重传
@@ -416,8 +362,9 @@
         var uploadInst = upload.render({
             elem: '#test'
             ,url: '<%=request.getContextPath()%>/goods/upload'
+            ,size: '1024*5'
             ,before: function(obj){
-                g_url = obj.pushFile(); //将每次选择的文件追加到文件队列
+                files = obj.pushFile(); //将每次选择的文件追加到文件队列
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, g_url, result){//回调函数达到预览效果
                     $('#g_url').attr('src', result); //图片链接（base64）
@@ -431,7 +378,6 @@
                 layer.msg(res.msg);
                 // alert("上传成功"+res.msg);
                 document.getElementById("img_url").value = res.data.src;
-                // document.getElementById("picture").value = res.data.src();
             }
             ,error: function(){
                 //演示失败状态，并实现重传
