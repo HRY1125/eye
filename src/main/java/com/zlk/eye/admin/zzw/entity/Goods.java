@@ -1,4 +1,4 @@
-package com.zlk.eye.goods.entity;
+package com.zlk.eye.admin.zzw.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
@@ -44,5 +44,18 @@ public class Goods {
         this.g_money = g_money;
         this.g_count = g_count;
         this.g_date = g_date;
+    }
+
+    @Override
+    public String toString() {
+        return "Goods{" +
+                "g_id='" + g_id + '\'' +
+                ", g_name='" + g_name + '\'' +
+                ", g_profile='" + g_profile + '\'' +
+                ", g_url='" + g_url + '\'' +
+                ", g_money=" + g_money +
+                ", g_count=" + g_count +
+                ", g_date=" + g_date +
+                '}';
     }
 }

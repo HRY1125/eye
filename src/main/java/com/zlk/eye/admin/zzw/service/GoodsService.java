@@ -1,7 +1,7 @@
-package com.zlk.eye.goods.service;
+package com.zlk.eye.admin.zzw.service;
 
-import com.zlk.eye.goods.entity.Goods;
-import com.zlk.eye.goods.util.Pagination;
+import com.zlk.eye.admin.zzw.entity.Goods;
+import com.zlk.eye.admin.zzw.util.Pagination;
 
 import java.util.List;
 

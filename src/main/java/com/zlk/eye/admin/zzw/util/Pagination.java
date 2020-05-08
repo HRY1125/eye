@@ -1,4 +1,4 @@
-package com.zlk.eye.goods.util;
+package com.zlk.eye.admin.zzw.util;
 
 import lombok.Getter;
 import lombok.Setter;

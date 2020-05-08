@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zlk.eye.goods.mapper.GoodsMapper">
-    <resultMap id="goodsEntityMap" type="com.zlk.eye.goods.entity.Goods">
+<mapper namespace="com.zlk.eye.admin.zzw.mapper.GoodsMapper">
+    <resultMap id="goodsEntityMap" type="com.zlk.eye.admin.zzw.entity.Goods">
         <id property="g_id" column="g_id" javaType="java.lang.String"></id>
         <result property="g_name" column="g_name" javaType="java.lang.String"></result>
         <result property="g_profile" column="g_profile" javaType="java.lang.String"></result>
@@ -13,7 +13,7 @@
         <result property="g_date" column="g_date" javaType="java.util.Date"></result>
     </resultMap>
 
-    <insert id="addGoods" parameterType="com.zlk.eye.goods.entity.Goods">
+    <insert id="addGoods" parameterType="com.zlk.eye.admin.zzw.entity.Goods">
         insert into goods
         <trim prefix="(" suffix=") " suffixOverrides=",">
             g_id,g_name,g_profile,g_url,g_money,g_count,g_date,
@@ -26,7 +26,7 @@
     <delete id="deleteGoodsByGoodsId" parameterType="java.lang.String">
         delete from goods where g_id=#{g_id}
     </delete>
-    <update id="updateGoodsByGoodsId" parameterType="com.zlk.eye.goods.entity.Goods">
+    <update id="updateGoodsByGoodsId" parameterType="com.zlk.eye.admin.zzw.entity.Goods">
         update goods
         <set>
             <if test="g_name!=null and g_name!='' ">
@@ -66,7 +66,7 @@
     <select id="findGoodsToGoodsEdit" parameterType="java.lang.String" resultMap="goodsEntityMap">
         select * from goods
     </select>
-    <select id="selectGoodsByLimit" parameterType="com.zlk.eye.goods.util.Pagination" resultMap="goodsEntityMap">
+    <select id="selectGoodsByLimit" parameterType="com.zlk.eye.admin.zzw.util.Pagination" resultMap="goodsEntityMap">
         select * from goods
         <if test="condition!='' and condition!=null">
             where g_name like CONCAT('%',#{condition},'%')

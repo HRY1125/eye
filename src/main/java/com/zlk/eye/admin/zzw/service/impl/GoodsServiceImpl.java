@@ -1,9 +1,9 @@
-package com.zlk.eye.goods.service.impl;
+package com.zlk.eye.admin.zzw.service.impl;
 
-import com.zlk.eye.goods.entity.Goods;
-import com.zlk.eye.goods.mapper.GoodsMapper;
-import com.zlk.eye.goods.service.GoodsService;
-import com.zlk.eye.goods.util.Pagination;
+import com.zlk.eye.admin.zzw.entity.Goods;
+import com.zlk.eye.admin.zzw.mapper.GoodsMapper;
+import com.zlk.eye.admin.zzw.service.GoodsService;
+import com.zlk.eye.admin.zzw.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

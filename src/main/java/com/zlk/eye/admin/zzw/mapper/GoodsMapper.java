@@ -1,7 +1,7 @@
-package com.zlk.eye.goods.mapper;
+package com.zlk.eye.admin.zzw.mapper;
 
-import com.zlk.eye.goods.entity.Goods;
-import com.zlk.eye.goods.util.Pagination;
+import com.zlk.eye.admin.zzw.entity.Goods;
+import com.zlk.eye.admin.zzw.util.Pagination;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
