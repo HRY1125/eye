@@ -190,7 +190,8 @@ public class GoodsController {
      * @return
      */
     @RequestMapping(value = "/update")
-    public ModelAndView update( Goods goods, HttpServletRequest request){
+    @ResponseBody
+    public ModelAndView update( Goods goods){
         ModelAndView mv=new ModelAndView();
         //判断商品是否更改，更改后判断更改后的商品是否存在
         List<Goods> goodsByName = goodsService.selectGoodsByName(goods.getG_name());

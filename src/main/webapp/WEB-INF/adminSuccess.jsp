@@ -88,8 +88,8 @@
                 <a href="javascript:;">系统管理</a>
                 <dl class="layui-nav-child">
                     <dd><a href="<%=request.getContextPath()%>/adminNews/toNewsManage" target="maintarget">新闻动态管理</a></dd>
-                    <dd><a href="<%=request.getContextPath()%>/adminQuestion/toQuestionManager" target="maintarget">常见问题管理</a></dd>
-                    <dd><a href="<%=request.getContextPath()%>/" target="maintarget">上传商品信息</a></dd>
+                    <dd><a href="<%=request.getContextPath()%>/adminQuestions/toQuestionsManage" target="maintarget">常见问题管理</a></dd>
+                    <dd><a href="<%=request.getContextPath()%>/goods/toGoods" target="maintarget">上传商品信息</a></dd>
                 </dl>
             </li>
         </ul>

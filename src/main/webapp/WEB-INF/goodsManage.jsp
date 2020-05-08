@@ -43,6 +43,7 @@
 <input type="hidden" value="${msg}" id="msg">
 <div id="addForm" hidden="hidden">
     <form action="<%=request.getContextPath()%>/goods/insert" class="form layui-form" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="g_id" id="g_id">
         <%--商品名称--%>
         <div class="layui-form-item" style="margin-top: 2vw;">
             <label class="layui-form-label">商品名称</label>
@@ -54,25 +55,24 @@
         </div>
 
         <%--商品生产日期--%>
-        <div class="layui-form-item">
+        <div class="layui-form-item"  style="margin-top: 2vw;">
             <div class="layui-inline">
                 <label class="layui-form-label">生产日期</label>
                 <div class="layui-input-block">
-                    <input type="text" name="g_date" id="g_date1" autocomplete="off" class="layui-input"
-                           style="width: 25.5vw;">
+                    <input type="text" name="g_date" id="g_date1" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>
 
         <%--商品图片--%>
-            <div class="layui-form-item" style="margin-top: 20px;">
+            <div class="layui-form-item" style="margin-top: 2vw;">
                 <label class="layui-form-label">商家图片：</label>
                 <div class="layui-upload">
                     <button type="button" class="layui-btn" id="test1">上传图片</button>
-                    <input type="hidden" id="img_url" name="g_url"/>
+                    <input type="hidden" id="img_url1" name="g_url"/>
                     <div class="layui-upload-list">
-                        <img class="layui-upload-img"  name="g_url" id="g_url" th:value="*{g_url}">
-                        <p id="demoText"></p>
+                        <img class="layui-upload-img" name="g_url">
+                        <p id="demoText1"></p>
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
         </div>--%>
 
         <%--商品简介--%>
-        <div class="layui-form-item">
+        <div class="layui-form-item" style="margin-top: 2vw;">
             <label class="layui-form-label">商品简介</label>
             <div class="layui-input-block">
                 <textarea name="g_profile" placeholder="请输入商品简介(不超过100字)" class="layui-textarea" maxlength="100"></textarea>
@@ -136,20 +136,20 @@
             <div class="layui-inline">
                 <label class="layui-form-label">生产日期</label>
                 <div class="layui-input-block">
-                    <input type="text" name="g_date" id="g_date" autocomplete="off" class="layui-input"
-                           style="width: 25.5vw;">
+                    <input type="text" name="g_date" id="g_date" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>
 
         <%--商品图片--%>
-        <div class="layui-form-item layui-upload">
-            <label class="layui-form-label">商品图片</label>
-            <div class="layui-input-block">
-                <button type="button" class="layui-btn" id="test2">图片上传</button>
+        <div class="layui-form-item" style="margin-top: 2vw;">
+            <label class="layui-form-label">商家图片：</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" id="test">上传图片</button>
+                <input type="hidden" id="img_url" name="g_url"/>
                 <div class="layui-upload-list">
-                    <img class="layui-upload-img" name="g_url" id="g_url2" style="width: 100px;height: 100px">
-                    <%--<p id="demoText"></p>--%>
+                    <img class="layui-upload-img" name="g_url" id="g_url" th:value="*{g_url}">
+                    <p id="demoText"></p>
                 </div>
             </div>
         </div>
@@ -400,6 +400,43 @@
                 //上传成功
                 layer.msg(res.msg);
                 // alert("上传成功"+res.msg);
+                document.getElementById("img_url1").value = res.data.src;
+                // document.getElementById("picture").value = res.data.src();
+                /*if(res.code==0){
+                    $('.layui-upload-list').html('<img class="layui-upload-list" style="width:80px;height:100px" src="'+res.src+'" id="demo1"> <p id="demoText"></p>');
+                    $('.layui-btn').css({"margin-left":"104px","width":"90px","margin-top":"6px"});
+                    $('.layui-btn').text("重新上传");
+                    return layer.msg(res.msg,{time:700});
+                }*/
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText1');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst.upload();
+                });
+            }
+        });
+
+
+        var uploadInst = upload.render({
+            elem: '#test'
+            ,url: '<%=request.getContextPath()%>/goods/upload'
+            ,before: function(obj){
+                files = obj.pushFile(); //将每次选择的文件追加到文件队列
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, g_url, result){//回调函数达到预览效果
+                    $('#g_url').attr('src', result); //图片链接（base64）
+                });
+            }
+            ,done: function(res){ 　　　　//如果上传失败
+                if(res.code > 0){
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+                layer.msg(res.msg);
+                // alert("上传成功"+res.msg);
                 document.getElementById("img_url").value = res.data.src;
                 // document.getElementById("picture").value = res.data.src();
                 /*if(res.code==0){
@@ -418,6 +455,7 @@
                 });
             }
         });
+
 
     });
 </script>
