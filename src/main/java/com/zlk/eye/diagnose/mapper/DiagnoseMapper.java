@@ -12,9 +12,11 @@ import java.util.List;
 @Component
 public interface DiagnoseMapper {
 
-    List<Diagnose> selectByID(Diagnose diagnose);
+    List<Diagnose> selectByHumanID(Diagnose diagnose);
 
     Integer selectCountById(Diagnose diagnose);
 
     Integer deleteDiagnose(int diagnoseId);
+
+    Diagnose selectById(int diagnoseId);
 }
