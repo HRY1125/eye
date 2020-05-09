@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlk.eye.admin.qkq.mapper.QuestionsManageMapper">
+    <resultMap id="questionsEntityMap" type="com.zlk.eye.admin.qkq.entity.Questions">
+        <id property="questionId" column="q_id" javaType="java.lang.String"/>
+        <result property="questionTitle" column="q_title" javaType="java.lang.String"/>
+        <result property="questionContent" column="q_content" javaType="java.lang.String"/>
+        <result property="questionAnswer" column="q_answer" javaType="java.lang.String"/>
+        <result property="createTime" column="create_time" javaType="java.util.Date"/>
+    </resultMap>
+
+    <select id="findQuestionsByAdmin" resultMap="questionsEntityMap" parameterType="com.zlk.eye.admin.util.Pagination">
+        select * from questions limit #{startPage},#{limit}
+    </select>
+
+    <select id="findCountByAdmin" resultType="java.lang.Integer" parameterType="com.zlk.eye.admin.util.Pagination">
+        select count(1) from questions
+    </select>
+
+    <delete id="deleteQuestionsByQuestionId" parameterType="java.lang.String">
+        delete from questions where q_id=#{questionId}
+    </delete>
+
+    <insert id="addQuestions" parameterType="com.zlk.eye.admin.qkq.entity.Questions">
+        insert into questions
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            q_id,q_title,q_content,q_answer,create_time
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{questionId},#{questionTitle},#{questionContent},#{questionAnswer},#{createTime}
+        </trim>
+    </insert>
+
+    <update id="updateContentByTextArea" parameterType="com.zlk.eye.admin.qkq.entity.Questions">
+        update questions
+        <set>
+            <if test="questionTitle!=null and questionTitle!=''">
+                q_title=#{questionTitle},
+            </if>
+            <if test="questionContent!=null and questionContent!=''">
+                q_content=#{questionContent},
+            </if>
+            <if test="createTime!=null">
+                create_time=#{createTime}
+            </if>
+        </set>
+        where q_id=#{questionId}
+    </update>
+
+    <update id="updateAnswerByTextArea" parameterType="com.zlk.eye.admin.qkq.entity.Questions">
+        update questions
+        <set>
+            <if test="questionAnswer!=null and questionAnswer!=''">
+                q_answer=#{questionAnswer},
+            </if>
+            <if test="createTime!=null">
+                create_time=#{createTime}
+            </if>
+        </set>
+        where q_id=#{questionId}
+    </update>
+</mapper>
