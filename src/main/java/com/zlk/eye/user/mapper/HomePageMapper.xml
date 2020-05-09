@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlk.eye.user.mapper.HomePageMapper">
+    <resultMap id="newsMap" type="com.zlk.eye.user.entity.News">
+        <id property="nId" column="n_id" javaType="java.lang.Integer"/>
+        <result property="nTitle" column="n_title" javaType="java.lang.String"/>
+        <result property="nArtical" column="n_artical" javaType="java.lang.String"/>
+        <result property="nUserId" column="n_user_id" javaType="java.lang.String"/>
+    </resultMap>
+    <!--根据用户ID查找新闻通知-->
+    <select id="findNewsById" parameterType="java.lang.String" resultMap="newsMap">
+        select * from news where n_user_id = #{nUserId}
+    </select>
+
+</mapper>
