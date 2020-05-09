@@ -49,7 +49,7 @@ public class IndexController {
      * @throws Exception
      */
     @RequestMapping("/userLogin")
-    public ModelAndView userLogin(Users users)throws Exception{
+    public ModelAndView userLogin(Users users,HttpServletRequest request)throws Exception{
         ModelAndView mv = new ModelAndView();
         if (users != null){
             Users user = indexService.findUserByNameAndPwd(users.getUserName(),users.getUserPwd());
@@ -58,7 +58,8 @@ public class IndexController {
                 mv.setViewName("firstpage");
                 return mv;
             } else {
-                mv.setViewName("home");
+                request.getSession().setAttribute("user",user);
+                mv.setViewName("homePageIn");
                 mv.addObject("name",users.getUserName());
                 return mv;
             }
@@ -75,7 +76,7 @@ public class IndexController {
      * @return
      */
     @RequestMapping("/doctorLogin")
-    public ModelAndView doctorLogin(Doctors doctors){
+    public ModelAndView doctorLogin(Doctors doctors,HttpServletRequest request){
         ModelAndView mv = new ModelAndView();
         if (doctors != null){
             Doctors doctor = indexService.findDoctorByNameAndPwd(doctors.getDoctorName(),doctors.getDoctorPwd());
@@ -84,7 +85,8 @@ public class IndexController {
                 mv.setViewName("firstpage");
                 return mv;
             } else {
-                mv.setViewName("home");
+                request.getSession().setAttribute("doctor",doctor);
+                mv.setViewName("homePageIn");
                 mv.addObject("name",doctors.getDoctorName());
                 return mv;
             }
