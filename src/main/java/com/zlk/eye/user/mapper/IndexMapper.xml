@@ -41,5 +41,12 @@
     <select id="findDoctorAll" parameterType="com.zlk.eye.user.entity.Doctors" resultMap="doctorMap">
         select doctor_name,doctor_phonenum from doctors
     </select>
-
+    <!--根据医生id查找医生信息-->
+    <select id="selectByDoctorId" parameterType="java.lang.String" resultMap="doctorMap">
+        select * from doctors where doctor_id = #{doctorId};
+    </select>
+    <!--根据用户id查找用户姓名-->
+    <select id="selectByUserId" parameterType="java.lang.String" resultMap="userMap">
+        select * from users where user_id = #{userId};
+    </select>
 </mapper>

@@ -59,7 +59,7 @@
                 and xiyan_time = #{xiyanTime}
             </if>
             <if test="date != null">
-                and date >= #{date}
+                and date = #{date}
             </if>
         </where>
     </select>
@@ -100,5 +100,9 @@
     <delete id="deleteById">
         delete from eye where eye_id = #{eyeId}
     </delete>
+
+    <select id="selectByUserId" resultMap="EyeMap" parameterType="java.lang.String">
+        select * from eye where user_id = #{userId} order by date asc;
+    </select>
 
 </mapper>

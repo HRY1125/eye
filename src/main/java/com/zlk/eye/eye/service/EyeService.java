@@ -65,4 +65,6 @@ public interface EyeService {
      * @return 是否成功
      */
     boolean deleteById(Integer eyeId);
+
+    List<Eye> selectByUserId(String userId);
 }

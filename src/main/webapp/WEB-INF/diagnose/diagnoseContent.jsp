@@ -17,26 +17,29 @@
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/diagnoseContent.js"></script>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/layui/css/layui.css" type="text/css">
     <script src="<%=request.getContextPath()%>/layui/layui.js"></script>
+    <script src="<%=request.getContextPath()%>/js/echarts.min.js"></script>
 </head>
 <body>
     <div id="mainDiagnose">
         <span id="diagnoseId" style="display: none">${diagnoseId}</span>
         <div id="chart">
-
+            <div id="line_chart"></div>
+            <div id="bar_chart"></div>
+            <div id="pie_chart"></div>
         </div>
         <div id="diagnoseContent"></div>
         <div id="report">
             <div id="user_content">
-                <c:if test="${userId != null}">
+                <c:if test="${userName != null}">
                     <div class="user" id="user_id">
                         <span>用户</span>
-                        <span>${userId}</span>
+                        <span>${userName}</span>
                     </div>
                 </c:if>
-                <c:if test="${docterId != null}">
+                <c:if test="${doctorName != null}">
                     <div class="user" id="docter_id">
                         <span>医生</span>
-                        <span>${docterId}</span>
+                        <span>${doctorName}</span>
                     </div>
                 </c:if>
             </div>
@@ -50,5 +53,6 @@
             </div>
         </div>
     </div>
+
 </body>
 </html>

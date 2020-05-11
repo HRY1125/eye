@@ -71,4 +71,6 @@ public interface EyeMapper {
      * @return 影响行数
      */
     int deleteById(Integer eyeId);
+
+    List<Eye> selectByUserId(String userId);
 }

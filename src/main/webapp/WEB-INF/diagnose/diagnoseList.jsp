@@ -37,14 +37,49 @@
                 , toolbar: '#toolbarDemo'
                 , cols: [[
                     {field: 'diagnoseId', width: 100, title: '诊断ID', sort: true}
-                    , {field: 'userId', width: 120, title: '请求诊断用户', sort: true}
-                    , {field: 'doctorId', width:100,title: '医生id'}
+                    , {field: 'userName', width: 120, title: '请求诊断用户',templet: function (d) {
+                            return getUserName(d.userId);
+                        }}
+                    , {field: 'doctorName', width:100,title: '医生姓名',templet: function (d) {
+                            return getDoctorName(d.doctorId);
+                        }}
                     , {field: 'diagnoseTitle', title: '诊断说明'}
                     , {field: 'date', width: 200, title: '请求时间',templet: '<div>{{ layui.util.toDateString(d.date,"yyyy-MM-dd HH:mm:ss") }}</div>'}
                     , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 180}
                 ]]
                 , page: true
             });
+
+            function getUserName(userId){
+                var userName;
+                $.ajax({
+                    type:"POST",
+                    url:"<%=request.getContextPath()%>/diagnose/selectByUserId",
+                    async:false,
+                    data:{"userId":userId},
+                    dataType: "json",
+                    success:function (data) {
+                        userName = data.userName;
+                    }
+                });
+                return userName;
+            }
+
+            function getDoctorName(doctorId){
+                var doctorName;
+                $.ajax({
+                    type:"POST",
+                    url:"<%=request.getContextPath()%>/diagnose/selectByDoctorId",
+                    async:false,
+                    data:{"doctorId":doctorId},
+                    dataType: "json",
+                    success:function (data) {
+                        doctorName = data.doctorName;
+                    }
+                });
+                return doctorName;
+            }
+
 
             //监听行工具事件
             table.on('tool(diagnose)', function(obj){

@@ -7,9 +7,27 @@
 /*图片显示部分*/
 #chart{
     width: 70%;
-    height: 20em;
+    height: 50em;
     margin: 1em auto;
-    background-color: green;
+    background-color: rgb(227,237,242);
+    display: flex;
+    flex-wrap: wrap;
+}
+#line_chart{
+    width: 90%;
+    height: 20em;
+    margin: 1em 1em 2em 1em;
+}
+#bar_chart{
+    width: 40%;
+    height: 20em;
+    margin: 1em 5%;
+}
+
+#pie_chart{
+    width: 40%;
+    height: 20em;
+    margin: 1em 5%;
 }
 
 /*诊断内容显示部分*/

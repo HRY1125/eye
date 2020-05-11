@@ -85,4 +85,9 @@ public class EyeServiceImpl implements EyeService {
     public boolean deleteById(Integer eyeId) {
         return this.eyeMapper.deleteById(eyeId) > 0;
     }
+
+    @Override
+    public List<Eye> selectByUserId(String userId) {
+        return eyeMapper.selectByUserId(userId);
+    }
 }

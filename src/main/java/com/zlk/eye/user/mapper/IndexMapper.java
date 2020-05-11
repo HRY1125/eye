@@ -55,4 +55,16 @@ public interface IndexMapper {
      * @return
      */
     List<Doctors> findDoctorAll();
+
+    /**
+     * 根据医生id查找医生信息
+     * @return
+     */
+    Doctors selectByDoctorId(String doctorId);
+
+    /**
+     * 根据用户id查找用户信息
+     * @return
+     */
+    Users selectByUserId(String userId);
 }

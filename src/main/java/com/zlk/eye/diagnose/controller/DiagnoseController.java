@@ -2,6 +2,9 @@ package com.zlk.eye.diagnose.controller;
 
 import com.zlk.eye.diagnose.service.DiagnoseService;
 import com.zlk.eye.entity.Diagnose;
+import com.zlk.eye.user.entity.Doctors;
+import com.zlk.eye.user.entity.Users;
+import com.zlk.eye.user.service.IndexService;
 import com.zlk.eye.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +30,17 @@ public class DiagnoseController {
 
     @Autowired
     private DiagnoseService diagnoseService;
+    @Autowired
+    private IndexService indexService;
 
+    /**
+     *  跳转至诊断列表页面
+     *@method toList
+     *@params []
+     *@return org.springframework.web.servlet.ModelAndView
+     *@author zhang
+     *@time 2020/5/11  16:57
+     */
     @RequestMapping(value = "/toDiagnoseList")
     public ModelAndView toList() throws Exception{
         ModelAndView mv = new ModelAndView();
@@ -35,6 +48,14 @@ public class DiagnoseController {
         return mv;
     }
 
+    /**
+     *  查找全部诊断信息
+     *@method selectAll
+     *@params [request, page, limit]
+     *@return java.util.Map<java.lang.String,java.lang.Object>
+     *@author zhang
+     *@time 2020/5/11  16:57
+     */
     @RequestMapping(value = "/selectAll",method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> selectAll(HttpServletRequest request,Integer page, Integer limit) throws Exception{
@@ -57,8 +78,17 @@ public class DiagnoseController {
         map.put("count",count);
         map.put("data",diagnoseList);
         return map;
+
     }
 
+    /**
+     *  删除诊断信息
+     *@method deleteDiagnose
+     *@params [diagnoseId]
+     *@return java.util.Map<java.lang.String,java.lang.Object>
+     *@author zhang
+     *@time 2020/5/11  16:58
+     */
     @RequestMapping(value = "/deleteDiagnose",method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> deleteDiagnose(int diagnoseId) throws Exception{
@@ -66,14 +96,57 @@ public class DiagnoseController {
         Map<String,Object> map = new HashMap<>();
         map.put("message",message);
         return map;
+
     }
 
+    /**
+     *  根据诊断id查找诊断信息
+     *@method selectById
+     *@params [diagnoseId]
+     *@return java.util.Map<java.lang.String,java.lang.Object>
+     *@author zhang
+     *@time 2020/5/11  16:58
+     */
     @RequestMapping(value = "selectById",method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> selectById(int diagnoseId) throws Exception{
         Diagnose diagnose = diagnoseService.selectById(diagnoseId);
         Map<String,Object> map = new HashMap<>();
         map.put("diagnose",diagnose);
+        return map;
+    }
+
+    /**
+     *  根据医生id查找医生信息
+     *@method selectByDoctorId
+     *@params [doctorId]
+     *@return java.util.Map<java.lang.String,java.lang.Object>
+     *@author zhang
+     *@time 2020/5/11  17:16
+     */
+    @RequestMapping(value = "selectByDoctorId",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> selectByDoctorId(String doctorId) throws Exception{
+        Doctors doctor = indexService.selectByDoctorId(doctorId);
+        Map<String,Object> map = new HashMap<>();
+        map.put("doctorName",doctor.getDoctorName());
+        return map;
+    }
+
+    /**
+     *  根据用户id查找用户信息
+     *@method selectByUserId
+     *@params [userId]
+     *@return java.util.Map<java.lang.String,java.lang.Object>
+     *@author zhang
+     *@time 2020/5/11  17:17
+     */
+    @RequestMapping(value = "selectByUserId",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> selectByUserId(String userId) throws Exception{
+        Users user = indexService.selectByUserId(userId);
+        Map<String,Object> map = new HashMap<>();
+        map.put("userName",user.getUserName());
         return map;
     }
 }

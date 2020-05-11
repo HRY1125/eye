@@ -26,7 +26,7 @@ public class Diagnose {
     /* 诊断信息说明 对应数据库表中diagnose_title字段*/
     private String diagnoseTitle;
     /* 请求诊断日期 对应数据库表中date字段*/
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
     private int startPage;

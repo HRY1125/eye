@@ -46,4 +46,5 @@
     <delete id="deleteByDiagnoseId" parameterType="java.lang.Integer">
         delete from diagnosecontent where diagnose_id = #{diagnoseId};
     </delete>
+
 </mapper>

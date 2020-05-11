@@ -50,4 +50,14 @@ public class IndexServiceImpl implements IndexService {
     public List<Doctors> findDoctorAll() {
         return indexMapper.findDoctorAll();
     }
+
+    @Override
+    public Doctors selectByDoctorId(String doctorId) {
+        return indexMapper.selectByDoctorId(doctorId);
+    }
+
+    @Override
+    public Users selectByUserId(String userId) {
+        return indexMapper.selectByUserId(userId);
+    }
 }

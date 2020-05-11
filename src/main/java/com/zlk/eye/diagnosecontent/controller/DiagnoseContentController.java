@@ -4,6 +4,11 @@ import com.zlk.eye.diagnose.service.DiagnoseService;
 import com.zlk.eye.diagnosecontent.service.DiagnoseContentService;
 import com.zlk.eye.entity.Diagnose;
 import com.zlk.eye.entity.DiagnoseContent;
+import com.zlk.eye.eye.entity.Eye;
+import com.zlk.eye.eye.service.EyeService;
+import com.zlk.eye.user.entity.Doctors;
+import com.zlk.eye.user.entity.Users;
+import com.zlk.eye.user.service.IndexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @program: eye
@@ -32,6 +35,10 @@ public class DiagnoseContentController {
     private DiagnoseContentService diagnoseContentService;
     @Autowired
     private DiagnoseService diagnoseService;
+    @Autowired
+    private EyeService eyeService;
+    @Autowired
+    private IndexService indexService;
 
     /**
      *  跳转至诊断具体信息页面
@@ -46,12 +53,21 @@ public class DiagnoseContentController {
 //        String userId = (String) request.getSession().getAttribute("userId");
 //        String docterId = (String) request.getSession().getAttribute("docterId");
         String userId = null;
-        String docterId = "222";
+        String doctorId = "222";
+
         ModelAndView mv = new ModelAndView();
 //        int diagnoseId = 3;
         mv.addObject("diagnoseId",diagnoseId);
-        mv.addObject("userId",userId);
-        mv.addObject("docterId",docterId);
+        if (userId!=null){
+            Users users = indexService.selectByUserId(userId);
+            String userName = users.getUserName();
+            mv.addObject("userName",userName);
+        }
+        if (doctorId!=null){
+            Doctors doctors = indexService.selectByDoctorId(doctorId);
+            String doctorName = doctors.getDoctorName();
+            mv.addObject("doctorName",doctorName);
+        }
         mv.setViewName("diagnose/diagnoseContent");
         return mv;
     }
@@ -89,6 +105,10 @@ public class DiagnoseContentController {
         Diagnose diagnose = diagnoseService.selectById(diagnoseId);
         String userId = diagnose.getUserId();
         String doctorId = diagnose.getDoctorId();
+        Doctors doctors = indexService.selectByDoctorId(doctorId);
+        Users users = indexService.selectByUserId(userId);
+        String doctorName = doctors.getDoctorName();
+        String userName = users.getUserName();
         Integer pages;
         if (count%limit==0){
             pages = count/limit;
@@ -98,8 +118,8 @@ public class DiagnoseContentController {
         Map<String, Object> map = new HashMap<>();
         map.put("diagnoseContents",diagnoseContents);
         map.put("pages",pages);
-        map.put("userId",userId);
-        map.put("doctorId",doctorId);
+        map.put("userName",userName);
+        map.put("doctorName",doctorName);
         return map;
 
     }
@@ -159,6 +179,52 @@ public class DiagnoseContentController {
         Map<String, Object> map = new HashMap<>();
         return map;
 
+    }
+
+    /**
+     *  根据id和日期查找眼保情况
+     *@method selectEyeByIdAndDate
+     *@params [diagnoseId]
+     *@return java.util.Map<java.lang.String,java.lang.Object>
+     *@author zhang
+     *@time 2020/5/11  15:50
+     */
+    @RequestMapping(value = "/selectEyeByIdAndDate",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> selectEyeByIdAndDate(int diagnoseId) throws Exception{
+        Diagnose diagnose = diagnoseService.selectById(diagnoseId);
+        String userId = diagnose.getUserId();
+        Date date = diagnose.getDate();
+        Eye e = new Eye();
+        e.setUserId(userId);
+        e.setDate(date);
+        Eye eye = eyeService.queryAllByEye(e);
+        Map<String,Object> map = new HashMap<>();
+        map.put("eye",eye);
+        return map;
+    }
+
+    @RequestMapping(value = "/selectTimes",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> selectTimes(int diagnoseId) throws Exception{
+        Diagnose diagnose = diagnoseService.selectById(diagnoseId);
+        String userId = diagnose.getUserId();
+        Date date = diagnose.getDate();
+        int index = 0;
+        List<Eye> eyes = eyeService.selectByUserId(userId);
+        for (int i=0;i<eyes.size();i++){
+            if (date.equals(eyes.get(i).getDate())){
+                System.out.println("两个日期相同");
+                index = i;
+            }
+        }
+        List<Eye> eyeList = new ArrayList<>();
+        for (int j = index;j>index-14&&j>=0;j--){
+            eyeList.add(eyes.get(j));
+        }
+        Map<String,Object> map = new HashMap<>();
+        map.put("eyeList",eyeList);
+        return map;
     }
 
 
