@@ -1,16 +1,18 @@
 <%--
   Created by IntelliJ IDEA.
-  User: l
-  Date: 2020/4/29
-  Time: 9:09
+  User: Anduin
+  Date: 2020/5/7
+  Time: 23:47
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>常见问题管理</title>
+    <title>首页</title>
 </head>
 <body>
-a
+<script type="text/javascript">
+    location.href = "<%=request.getContextPath()%>/homePageController/toIndex";
+</script>
 </body>
 </html>
