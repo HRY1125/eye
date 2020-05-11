@@ -42,8 +42,8 @@ public class DiagnoseFontServiceImpl implements DiagnoseFrontService {
      * @return 对象列表
      */
     @Override
-    public List<DiagnoseFont> queryAllByLimit(int offset, int limit) {
-        return this.diagnoseMapper.queryAllByLimit(offset, limit);
+    public List<DiagnoseFont> queryAllByLimit(int userId,int offset, int limit) {
+        return this.diagnoseMapper.queryAllByLimit(userId,offset, limit);
     }
 
     /**

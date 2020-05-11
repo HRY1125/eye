@@ -37,7 +37,7 @@ public interface DiagnoseFontMapper {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<DiagnoseFont> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<DiagnoseFont> queryAllByLimit(@Param("userId")int userId,@Param("offset") int offset, @Param("limit") int limit);
 
     /**
      * 通过实体作为筛选条件查询

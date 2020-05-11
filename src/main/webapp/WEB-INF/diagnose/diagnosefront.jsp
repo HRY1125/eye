@@ -16,6 +16,14 @@
         .diagnoseTest{
             font-size: 40px;
         }
+        .diagnoseTest div{
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+        }
+        #diagnoseUL li{
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -45,7 +53,7 @@
                                 layui.each(data.diagnoseList, function (index, courses) {
                                     /*console.log(index);
                                     console.log(courses);*/
-                                    lis.push('<li class="diagnoseTest"><input type="hidden" value="'+courses.diagnoseId+'"><center>'+courses.title+'</center></li>');
+                                    lis.push('<li class="diagnoseTest"><input type="hidden" value="'+courses.diagnoseId+'"><center><div>'+courses.title+'</div></center></li>');
                                     /*lis.push(((page-1)*6 + i + 1 ));
                                     lis.push();
                                     lis.push('</li>');*/

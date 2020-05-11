@@ -23,19 +23,30 @@ public class DiagnoseFrontController {
     @Autowired
     private DiagnoseFrontService diagnoseService;
 
+    /**
+     * 查询的方法
+     * @param page
+     * @param limit
+     * @return 带有diagnoseList数据的map
+     */
     @RequestMapping("queryAllByDiagnose")
     @ResponseBody
     public Map queryAllByDiagnose(Integer page,Integer limit){
         Map map =new HashMap();
+        Integer userId = 111;
         Integer number = diagnoseService.queryCount();
         Integer slnumber = number/limit;
         if(number%limit!=0){ slnumber++; }
         int offset = (page-1)*limit;
         map.put("number",slnumber);
-        map.put("diagnoseList",diagnoseService.queryAllByLimit(offset,limit));
+        map.put("diagnoseList",diagnoseService.queryAllByLimit(userId,offset,limit));
         return map;
     }
 
+    /**
+     * 跳转诊断页面
+     * @return 诊断页面
+     */
     @RequestMapping("toDiagnoseFront")
     public String toDiagnoseFront(){
         return "diagnose/diagnosefront";

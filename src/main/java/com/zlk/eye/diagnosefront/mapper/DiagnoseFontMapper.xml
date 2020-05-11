@@ -30,6 +30,7 @@
         select
           diagnose_id, user_id, doctor_id, content_id, title
         from diagnose
+        where user_id = #{userId}
         limit #{offset}, #{limit}
     </select>
 

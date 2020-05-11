@@ -32,7 +32,7 @@ public interface DiagnoseFrontService {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<DiagnoseFont> queryAllByLimit(int offset, int limit);
+    List<DiagnoseFont> queryAllByLimit(int userId,int offset, int limit);
 
     /**
      * 新增数据
