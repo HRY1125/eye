@@ -1,13 +1,14 @@
 package com.zlk.eye.admin.zzw.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zlk.eye.admin.util.UUIDUtils;
 import com.zlk.eye.admin.zzw.entity.Goods;
 import com.zlk.eye.admin.zzw.service.GoodsService;
 import com.zlk.eye.admin.zzw.util.Pagination;
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +43,7 @@ public class GoodsController {
      */
     @RequestMapping("/upload")
     @ResponseBody
-    public JSONObject upload(MultipartFile file, @Valid Goods goods, BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException{
+    public JSONObject upload(@RequestParam("g_url")MultipartFile file, Goods goods, HttpServletRequest request) throws IllegalStateException, IOException{
         JSONObject res = new JSONObject();
         JSONObject resUrl = new JSONObject();
 
@@ -63,17 +64,16 @@ public class GoodsController {
         }else{
             System.out.println(filepath.getParentFile());
         }
-//      if(!filepath.exists()) {
+
         file.transferTo(dir);
         //获得当前项目所在路径
         String pathRoot=request.getSession().getServletContext().getRealPath("");
         System.out.println("当前项目所在路径："+pathRoot);
 
-        String sqlFile = "http://localhost:8003/"+fileName;
-        //Goods goods = new Goods();
+        String sqlFile = "http://localhost:8080/"+fileName;
         goods.setG_url(sqlFile);
         goodsService.addGoods(goods);
-//        }
+
         resUrl.put("src", sqlFile);
         res.put("code", 0);
         res.put("msg", "上传成功");
@@ -83,40 +83,7 @@ public class GoodsController {
 
         return res;
 
-        /*Map<String, String> map = new HashMap<>();
-        map.put("filePath", path);
-        map.put("fileName", fileName);
-
-        Map<String, Object> result = new HashMap<>();
-        result.put("code", 0);
-        result.put("msg", "上传成功");
-        result.put("count", 1);
-        result.put("data", map);
-        return result;*/
-
     }
-    /*public String fileUpload(MultipartFile file,@Valid Goods goods, BindingResult bindingResult) throws IOException {
-        *//**
-         * 上传图片
-         *//*
-        //图片上传成功后，将图片的地址写到数据库
-        //保存图片的路径（这是存在我项目中的images下了，你们可以设置路径）
-        String filePath = "D:\\eye";
-        //获取原始图片的拓展名
-        String originalFilename = file.getOriginalFilename();
-        //新的文件名字
-        String newFileName = UUID.randomUUID() + originalFilename;
-        //封装上传文件位置的全路径
-        File targetFile = new File(filePath, newFileName);
-        //把本地文件上传到封装上传文件位置的全路径
-        file.transferTo(targetFile);
-        goods.setG_url(newFileName);
-        *//**
-         * 保存商品
-         *//*
-        goodsService.addGoods(goods);
-        return "goodsManage";
-    }*/
 
     /**
      * 跳转到商品页面
@@ -154,7 +121,7 @@ public class GoodsController {
      * @return
      */
     @RequestMapping(value = "/insert")
-    public ModelAndView insert(@Valid Goods goods){
+    public ModelAndView insert(@Valid Goods goods, BindingResult bindingResult){
         ModelAndView mv=new ModelAndView();
         goods.setG_id(UUIDUtils.getId());
 
@@ -191,18 +158,8 @@ public class GoodsController {
      */
     @RequestMapping(value = "/update")
     @ResponseBody
-    public ModelAndView update( Goods goods){
+    public ModelAndView update( Goods goods, HttpServletRequest request){
         ModelAndView mv=new ModelAndView();
-        //判断商品是否更改，更改后判断更改后的商品是否存在
-        List<Goods> goodsByName = goodsService.selectGoodsByName(goods.getG_name());
-        Goods goodsByGoodsId = goodsService.selectGoodsByGoodsId(goods.getG_id());
-
-        if(!goods.getG_name().equals(goodsByGoodsId.getG_name())&&goodsByName!=null){
-            mv.addObject("flag","true");
-            mv.addObject("msg","商品已存在");
-            mv.setViewName("goodsManage");
-            return mv;
-        }
         //修改商品信息，修改完成提交，提示:修改成功；否则，提示：修改失败
         Integer flag = goodsService.updateGoodsByGoodsId(goods);
         if(flag == 1){
@@ -222,11 +179,10 @@ public class GoodsController {
     /**
      * 通过商品id删除商品
      * @param g_id
-     * @param request
      * @return
      */
     @RequestMapping(value = "/delete")
-    public String delete(String g_id,HttpServletRequest request){
+    public String delete(String g_id){
 
         goodsService.deleteGoodsByGoodsId(g_id);
 

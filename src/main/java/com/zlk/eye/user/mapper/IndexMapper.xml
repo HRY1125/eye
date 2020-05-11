@@ -17,11 +17,11 @@
     </resultMap>
     <!--用户登录方法-->
     <select id="findUserByNameAndPwd" parameterType="java.util.Map" resultMap="userMap">
-        select user_name,user_pwd from users where user_name = #{userName} and user_pwd = #{userPwd}
+        select * from users where user_name = #{userName} and user_pwd = #{userPwd}
     </select>
     <!--医生登录方法-->
     <select id="findDoctorByNameAndPwd" parameterType="java.util.Map" resultMap="doctorMap">
-        select doctor_name,doctor_pwd from doctors where doctor_name = #{doctorName} and doctor_pwd = #{doctorPwd}
+        select * from doctors where doctor_name = #{doctorName} and doctor_pwd = #{doctorPwd}
     </select>
     <!--用户注册-->
     <insert id="addUser" parameterType="com.zlk.eye.user.entity.Users">
